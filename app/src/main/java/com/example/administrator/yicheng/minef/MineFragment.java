@@ -1,4 +1,4 @@
-package com.example.administrator.yicheng;
+package com.example.administrator.yicheng.minef;
 
 
 import android.os.Bundle;
@@ -7,7 +7,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-public class ActivityFragment extends Fragment {
+import com.example.administrator.yicheng.R;
+
+public class MineFragment extends Fragment {
 
 
     @Override

@@ -3,6 +3,8 @@ package com.example.administrator.yicheng;
 import android.support.v4.app.Fragment;
 import android.util.SparseArray;
 
+import com.example.administrator.yicheng.minef.MineFragment;
+
 /**
  * Created by Administrator on 2016/7/29.
  */
@@ -28,7 +30,7 @@ public class FragmentFactory {
                     break;
                 case Activity_fragment:
                     //这是“活动”页面对应的fragment
-                    fragment=new ActivityFragment();
+                    fragment=new MineFragment();
                     break;
                 case Profile_fragment:
                     //这是“我”页面对应的fragment
