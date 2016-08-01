@@ -1,10 +1,8 @@
 package com.example.administrator.yicheng.main;
 
 
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentTransaction;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v4.app.FragmentTransaction;
 import android.widget.LinearLayout;
 import android.widget.RadioGroup;
 
@@ -12,17 +10,22 @@ import com.example.administrator.yicheng.FragmentFactory;
 import com.example.administrator.yicheng.R;
 import com.example.administrator.yicheng.base.BaseActivity;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+
 public class MainActivity extends BaseActivity implements MainContract.View {
 
-    private LinearLayout fragmentContainer;
-    private RadioGroup mRadioGroup;
+    @BindView(R.id.the_main_activity_RadioGroup)
+    RadioGroup theMainActivityRadioGroup;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+    public int getLayoutId() {
+        return R.layout.activity_main;
+    }
 
-        mRadioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+    @Override
+    public void initView() {
+        theMainActivityRadioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup group, int checkedId) {
                 FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
@@ -51,23 +54,18 @@ public class MainActivity extends BaseActivity implements MainContract.View {
                 transaction.commit();
             }
         });
-
-
-    }
-
-    @Override
-    public int getLayoutId() {
-        return 0;
-    }
-
-    @Override
-    public void initView() {
-
     }
 
 
     @Override
     public void initData() {
+
+    }
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        // TODO: add setContentView(...) invocation
 
     }
 }
