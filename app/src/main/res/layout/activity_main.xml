@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="com.example.administrator.yicheng.MainActivity">
+    tools:context=".main.MainActivity">
 
     <LinearLayout
         android:id="@+id/the_main_activity_LinearLayoutContainer"
@@ -37,7 +37,7 @@
             android:text="活动"
             />
         <RadioButton
-            android:id="@+id/main_RadioGroup_four_activity"
+            android:id="@+id/main_RadioGroup_four_mine"
             style="@style/radioGroup_style"
             android:drawableTop="@drawable/icon_activity_selector"
             android:text="我"

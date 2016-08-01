@@ -1,4 +1,4 @@
-package com.example.administrator.yicheng;
+package com.example.administrator.yicheng.main;
 
 
 import android.support.v4.app.Fragment;
@@ -8,7 +8,11 @@ import android.os.Bundle;
 import android.widget.LinearLayout;
 import android.widget.RadioGroup;
 
-public class MainActivity extends AppCompatActivity {
+import com.example.administrator.yicheng.FragmentFactory;
+import com.example.administrator.yicheng.R;
+import com.example.administrator.yicheng.base.BaseActivity;
+
+public class MainActivity extends BaseActivity implements MainContract.View {
 
     private LinearLayout fragmentContainer;
     private RadioGroup mRadioGroup;
@@ -18,7 +22,6 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        initView();
         mRadioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup group, int checkedId) {
@@ -52,8 +55,19 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    private void initView() {
-        fragmentContainer = (LinearLayout) findViewById(R.id.the_main_activity_LinearLayoutContainer);
-        mRadioGroup = (RadioGroup) findViewById(R.id.the_main_activity_RadioGroup);
+    @Override
+    public int getLayoutId() {
+        return 0;
+    }
+
+    @Override
+    public void initView() {
+
+    }
+
+
+    @Override
+    public void initData() {
+
     }
 }
