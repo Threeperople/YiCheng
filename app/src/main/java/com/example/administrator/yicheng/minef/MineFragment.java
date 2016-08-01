@@ -17,7 +17,7 @@ public class MineFragment extends BaseFragment implements MineContract.View{
 
     @Override
     public int getLayoutId() {
-        return 0;
+        return R.id.main_RadioGroup_four_mine;
     }
 
     @Override

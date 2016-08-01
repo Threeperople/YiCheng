@@ -10,6 +10,7 @@ import com.example.administrator.yicheng.base.IBaseView;
 public class BlogdayContract {
     public interface  View extends IBaseView{
 
+
     }
     public interface  Model extends IBaseModel{
 

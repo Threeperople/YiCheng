@@ -1,6 +1,6 @@
 package com.example.administrator.yicheng.Read;
 
-
+import com.example.administrator.yicheng.R;
 import com.example.administrator.yicheng.base.BaseFragment;
 
 public class ReadFragment extends BaseFragment implements ReadContract.View{
@@ -9,7 +9,8 @@ public class ReadFragment extends BaseFragment implements ReadContract.View{
 
     @Override
     public int getLayoutId() {
-        return 0;
+
+        return R.id.main_RadioGroup_two_reading;
     }
 
     @Override
