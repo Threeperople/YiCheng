@@ -1,16 +1,46 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingBottom="@dimen/activity_vertical_margin"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="com.example.administrator.yicheng.MainActivity">
+    android:orientation="vertical"
+    tools:context="com.example.administrator.thefirstproject.MainActivity">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Hello World!" />
-</RelativeLayout>
+    <LinearLayout
+        android:id="@+id/the_main_activity_LinearLayoutContainer"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:orientation="vertical"
+        />
+    <RadioGroup
+        android:id="@+id/the_main_activity_RadioGroup"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <RadioButton
+            android:id="@+id/main_RadioGroup_one_blog_day"
+            style="@style/radioGroup_style"
+            android:drawableTop="@drawable/icon_blog_day_selector"
+            android:text="日荐"
+            />
+        <RadioButton
+            android:id="@+id/main_RadioGroup_two_reading"
+            style="@style/radioGroup_style"
+            android:drawableTop="@drawable/icon_reading_selector"
+            android:text="发现"
+            />
+        <RadioButton
+            android:id="@+id/main_RadioGroup_three_profile"
+            style="@style/radioGroup_style"
+            android:drawableTop="@drawable/icon_profile_selector"
+            android:text="活动"
+            />
+        <RadioButton
+            android:id="@+id/main_RadioGroup_four_activity"
+            style="@style/radioGroup_style"
+            android:drawableTop="@drawable/icon_activity_selector"
+            android:text="我"
+            />
+    </RadioGroup>
+</LinearLayout>
