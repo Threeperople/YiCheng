@@ -3,6 +3,7 @@ package com.example.administrator.yicheng;
 import android.support.v4.app.Fragment;
 import android.util.SparseArray;
 
+import com.example.administrator.yicheng.Read.ReadFragment;
 import com.example.administrator.yicheng.minef.MineFragment;
 
 /**
