@@ -43,7 +43,7 @@ public class MainActivity extends BaseActivity implements MainContract.View {
                                 FragmentFactory.creatFragment(FragmentFactory.Profile_fragment));
                         break;
                     //第四页
-                    case R.id.main_RadioGroup_four_activity:
+                    case R.id.main_RadioGroup_four_mine:
                         transaction.replace(R.id.the_main_activity_LinearLayoutContainer,
                                 FragmentFactory.creatFragment(FragmentFactory.Activity_fragment));
                         break;
