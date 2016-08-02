@@ -11,7 +11,6 @@ import com.example.administrator.yicheng.R;
 import com.example.administrator.yicheng.base.BaseActivity;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 
 public class MainActivity extends BaseActivity implements MainContract.View {
 
@@ -62,10 +61,4 @@ public class MainActivity extends BaseActivity implements MainContract.View {
 
     }
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        // TODO: add setContentView(...) invocation
-
-    }
 }

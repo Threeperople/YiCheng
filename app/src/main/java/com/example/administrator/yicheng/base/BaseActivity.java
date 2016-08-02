@@ -14,6 +14,7 @@ public abstract class BaseActivity extends AppCompatActivity implements IBaseVie
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         ButterKnife.bind(this);
+
         setContentView(getLayoutId());
 
         initView();
