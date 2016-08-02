@@ -3,10 +3,10 @@ package com.example.administrator.yicheng;
 import android.support.v4.app.Fragment;
 import android.util.SparseArray;
 
-import com.example.administrator.yicheng.Read.ReadFragment;
-import com.example.administrator.yicheng.blogdayf.BlogdayFragment;
-import com.example.administrator.yicheng.minef.MineFragment;
-import com.example.administrator.yicheng.profilef.ProfileFragment;
+import com.example.administrator.yicheng.main.Read.ReadFragment;
+import com.example.administrator.yicheng.main.blogdayf.BlogdayFragment;
+import com.example.administrator.yicheng.main.minef.MineFragment;
+import com.example.administrator.yicheng.main.profilef.ProfileFragment;
 
 /**
  * Created by Administrator on 2016/7/29.

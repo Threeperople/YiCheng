@@ -22,4 +22,12 @@ public abstract class BaseFragment extends Fragment implements IBaseView{
 
         return view;
     }
+
+    protected abstract void initData();
+
+    protected abstract void initView();
+
+    protected abstract int getLayoutId();
+
+
 }

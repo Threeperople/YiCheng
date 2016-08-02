@@ -1,16 +1,17 @@
-package com.example.administrator.yicheng.blogdayf;
+package com.example.administrator.yicheng.main.minef;
 
 
 import com.example.administrator.yicheng.R;
 import com.example.administrator.yicheng.base.BaseFragment;
 
+public class MineFragment extends BaseFragment implements MineContract.View{
 
-public class BlogdayFragment extends BaseFragment implements BlogdayContract.View{
+
 
 
     @Override
     public int getLayoutId() {
-        return R.layout.fragment_blogday;
+        return R.id.main_RadioGroup_four_mine;
     }
 
     @Override

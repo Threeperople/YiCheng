@@ -1,4 +1,4 @@
-package com.example.administrator.yicheng.profilef;
+package com.example.administrator.yicheng.main.profilef;
 
 import com.example.administrator.yicheng.base.IBaseModel;
 import com.example.administrator.yicheng.base.IBasePresenter;

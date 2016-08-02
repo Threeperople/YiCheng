@@ -1,4 +1,4 @@
-package com.example.administrator.yicheng.blogdayf;
+package com.example.administrator.yicheng.main.blogdayf;
 
 import com.example.administrator.yicheng.base.IBaseModel;
 import com.example.administrator.yicheng.base.IBasePresenter;

@@ -1,9 +1,7 @@
 package com.example.administrator.yicheng.main;
 
 
-import android.os.Bundle;
 import android.support.v4.app.FragmentTransaction;
-import android.widget.LinearLayout;
 import android.widget.RadioGroup;
 
 import com.example.administrator.yicheng.FragmentFactory;

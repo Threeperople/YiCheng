@@ -1,4 +1,4 @@
-package com.example.administrator.yicheng.blogdayf;
+package com.example.administrator.yicheng.main.blogdayf;
 
 /**
  * Created by Jensen on 2016/8/1.

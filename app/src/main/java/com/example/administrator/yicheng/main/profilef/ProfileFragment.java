@@ -1,16 +1,15 @@
-package com.example.administrator.yicheng.Read;
+package com.example.administrator.yicheng.main.profilef;
 
 import com.example.administrator.yicheng.R;
 import com.example.administrator.yicheng.base.BaseFragment;
 
-public class ReadFragment extends BaseFragment implements ReadContract.View{
 
+public class ProfileFragment extends BaseFragment implements ProfileContract.View{
 
 
     @Override
     public int getLayoutId() {
-
-        return R.id.main_RadioGroup_two_reading;
+        return R.layout.fragment_profile;
     }
 
     @Override

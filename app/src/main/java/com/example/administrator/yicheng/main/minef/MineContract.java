@@ -1,4 +1,4 @@
-package com.example.administrator.yicheng.minef;
+package com.example.administrator.yicheng.main.minef;
 
 import com.example.administrator.yicheng.base.IBaseModel;
 import com.example.administrator.yicheng.base.IBasePresenter;

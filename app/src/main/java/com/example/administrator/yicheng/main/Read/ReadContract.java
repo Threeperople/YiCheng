@@ -1,9 +1,8 @@
-package com.example.administrator.yicheng.Read;
+package com.example.administrator.yicheng.main.Read;
 
 import com.example.administrator.yicheng.base.IBaseModel;
 import com.example.administrator.yicheng.base.IBasePresenter;
 import com.example.administrator.yicheng.base.IBaseView;
-import com.example.administrator.yicheng.minef.MineContract;
 
 /**
  * Created by Administrator on 2016/8/1.
