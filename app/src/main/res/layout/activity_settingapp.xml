@@ -1,0 +1,37 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="#E9EAEE"
+    tools:context=".main.MainActivity">
+
+    <!-- 顶部导航 -->
+    <include layout="@layout/settingapp_toolbar_item"></include>
+
+    <!--消息推送-->
+    <include layout="@layout/settingapp_getmsgonoroff_item"/>
+
+    <!-- 清除缓存、检查更新-->
+    <include layout="@layout/settingapp_deletecach_item"/>
+    <include layout="@layout/settingapp_checktorefresh_item"/>
+
+    <!-- 给我们打分，关于-->
+    <include layout="@layout/settingapp_scoretoapp_item"/>
+    <include layout="@layout/settingapp_about_item"/>
+
+    <!-- 退出登录-->
+    <TextView
+        android:id="@+id/setting_exitApp"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:orientation="horizontal"
+        android:layout_marginTop="5dp"
+        android:gravity="center"
+        android:background="#fff"
+        android:text="退出登录"
+        android:textColor="#f00"
+        android:textSize="20sp"
+        ></TextView>
+
+</LinearLayout>

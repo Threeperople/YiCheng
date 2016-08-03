@@ -30,6 +30,9 @@
         <activity android:name=".main.minef.login.LogInActivity" />
         <activity android:name=".main.minef.login.setting.SettingActivity"></activity>
         <activity android:name=".main.minef.login.register.RegisterActivity"></activity>
+        <activity android:name=".main.minef.msg.MsgActivity"></activity>
+        <activity android:name=".main.minef.store.StoreActicity"></activity>
+        <activity android:name=".main.minef.settingAPP.SettingAppActivity"></activity>
     </application>
 
 </manifest>

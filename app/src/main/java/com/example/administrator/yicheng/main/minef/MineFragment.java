@@ -16,6 +16,9 @@ import com.example.administrator.yicheng.R;
 import com.example.administrator.yicheng.base.BaseFragment;
 import com.example.administrator.yicheng.main.minef.login.LogInActivity;
 import com.example.administrator.yicheng.main.minef.login.setting.SettingActivity;
+import com.example.administrator.yicheng.main.minef.msg.MsgActivity;
+import com.example.administrator.yicheng.main.minef.settingAPP.SettingAppActivity;
+import com.example.administrator.yicheng.main.minef.store.StoreActicity;
 import com.example.administrator.yicheng.utils.SharedPreferenceUtils;
 
 import butterknife.BindView;
@@ -79,23 +82,30 @@ public class MineFragment extends BaseFragment implements MineContract.View, Vie
                     getActivity().startActivity(intent);
                     //activity左出右进动画效果
                     getActivity().overridePendingTransition(R.anim.in_from_right,R.anim.out_to_left);
-
-
                 }
-
-
                 break;
 
             case R.id.fourFragment_middle_msgItem:
-                Toast.makeText(getActivity(),"first",Toast.LENGTH_SHORT).show();
+
+                Intent intent = new Intent(getActivity(), MsgActivity.class);
+                getActivity().startActivity(intent);
+                //activity左出右进动画效果
+                getActivity().overridePendingTransition(R.anim.in_from_right,R.anim.out_to_left);
+
+
                 break;
 
             case R.id.fourFragment_middle_storeItem:
-                Toast.makeText(getActivity(),"second",Toast.LENGTH_SHORT).show();
+
+                getActivity().startActivity(new Intent(getActivity(), StoreActicity.class));
+                //activity左出右进动画效果
+                getActivity().overridePendingTransition(R.anim.in_from_right,R.anim.out_to_left);
                 break;
 
             case R.id.fourFragment_middle_settingItem:
-                Toast.makeText(getActivity(),"third",Toast.LENGTH_SHORT).show();
+                getActivity().startActivity(new Intent(getActivity(), SettingAppActivity.class));
+                //activity左出右进动画效果
+                getActivity().overridePendingTransition(R.anim.in_from_right,R.anim.out_to_left);
                 break;
         }
     }
