@@ -10,6 +10,7 @@ public class MsgActivity extends BaseActivity {
     @Override
     public int getLayoutId() {
         return R.layout.activity_msg;
+
     }
 
     @Override
