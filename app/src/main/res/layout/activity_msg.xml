@@ -26,27 +26,14 @@
         </RelativeLayout>
 
     </android.support.v7.widget.Toolbar>
-    <LinearLayout
+    <ListView
+        android:id="@+id/msg_listView"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:gravity="center"
-        >
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@mipmap/icon_favorite_empty"
-            />
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="还没有消息哦"
-            />
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="你收到的消息将会出现在这里"
-            />
-    </LinearLayout>
+        android:layout_height="match_parent">
 
+    </ListView>
+    <include
+        layout="@layout/msgandstore_empty_view"
+        android:id="@+id/msg_emptyView"
+       />
 </LinearLayout>
