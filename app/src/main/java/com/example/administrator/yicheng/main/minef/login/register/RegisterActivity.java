@@ -28,7 +28,6 @@ import cn.bmob.sms.BmobSMS;
 import cn.bmob.sms.exception.BmobException;
 import cn.bmob.sms.listener.RequestSMSCodeListener;
 import cn.bmob.sms.listener.VerifySMSCodeListener;
-import cn.bmob.v3.listener.SaveListener;
 
 /**
  * Created by Administrator on 2016/8/2.
@@ -175,24 +174,24 @@ public class RegisterActivity extends BaseActivity {
 
     }
     private void save(RegisterPeople people) {//验证成功后，向服务端添加数据
-        people.save(new SaveListener<String>() {
-            @Override
-            public void done(String objectId, cn.bmob.v3.exception.BmobException e) {
-                if(e==null){
-                    //  toast("添加数据成功，返回objectId为："+objectId);
-                    Toast.makeText(RegisterActivity.this,"注册成功",Toast.LENGTH_SHORT).show();
-                    //注册成功，将数据保存到本地，name,sex,toux;
-                    //key:电话号码----生成用户名
-                    SharedPreferenceUtils.putAndApply(RegisterActivity.this, phoneNum, getUserName(phoneNum));
-                    //key:生成的用户名---->sex性别
-                    SharedPreferenceUtils.putAndApply(RegisterActivity.this,getUserName(phoneNum).toString(),"保密");
-                    finish();
-                }else{
-                    // toast("创建数据失败：" + e.getMessage());
-                    Toast.makeText(RegisterActivity.this,"注册失败",Toast.LENGTH_SHORT).show();
-                }
-            }
-        });
+//        people.save(new SaveListener<String>() {
+//            @Override
+//            public void done(String objectId, cn.bmob.v3.exception.BmobException e) {
+//                if(e==null){
+//                    //  toast("添加数据成功，返回objectId为："+objectId);
+//                    Toast.makeText(RegisterActivity.this,"注册成功",Toast.LENGTH_SHORT).show();
+//                    //注册成功，将数据保存到本地，name,sex,toux;
+//                    //key:电话号码----生成用户名
+//                    SharedPreferenceUtils.putAndApply(RegisterActivity.this, phoneNum, getUserName(phoneNum));
+//                    //key:生成的用户名---->sex性别
+//                    SharedPreferenceUtils.putAndApply(RegisterActivity.this,getUserName(phoneNum).toString(),"保密");
+//                    finish();
+//                }else{
+//                    // toast("创建数据失败：" + e.getMessage());
+//                    Toast.makeText(RegisterActivity.this,"注册失败",Toast.LENGTH_SHORT).show();
+//                }
+//            }
+//        });
     }
     private StringBuffer getUserName(String number) {//自动生成用户名
         StringBuffer stringBuffer = new StringBuffer();

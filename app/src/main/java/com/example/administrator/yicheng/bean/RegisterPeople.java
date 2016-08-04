@@ -1,11 +1,10 @@
 package com.example.administrator.yicheng.bean;
 
-import cn.bmob.v3.BmobObject;
 
 /**
  * Created by Administrator on 2016/7/30.
  */
-public class RegisterPeople extends BmobObject{
+public class RegisterPeople {
     private String  number;
     private String  password;
 

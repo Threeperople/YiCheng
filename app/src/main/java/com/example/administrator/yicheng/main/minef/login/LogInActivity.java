@@ -21,9 +21,6 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.OnClick;
-import cn.bmob.v3.BmobQuery;
-import cn.bmob.v3.exception.BmobException;
-import cn.bmob.v3.listener.FindListener;
 
 /**
  * Created by Administrator on 2016/8/2.
@@ -125,44 +122,44 @@ public class LogInActivity extends BaseActivity  {
             return;
         }else {
             if(phoneNum.matches("[1][358]\\d{9}")){
-                //查询数据
-                BmobQuery<RegisterPeople> bmobQuery = new BmobQuery<RegisterPeople>();
-
-                bmobQuery.addWhereEqualTo("number", phoneNum);
-                bmobQuery.findObjects(new FindListener<RegisterPeople>() {
-                    @Override
-                    public void done(List<RegisterPeople> list, BmobException e) {
-
-                        if(e==null){
-                            Log.i("TAG", "LogInActivity.done.poneNum+secretNum"+phoneNum+secretNum);
-                            if(list.size()!=0){
-                                String password = list.get(0).getPassword();
-                                String number = list.get(0).getNumber();
-                                Log.i("TAG", "LogInActivity.done."+password);
-                                if(secretNum.equals(password)){
-                                    Toast.makeText(LogInActivity.this,"登录成功",Toast.LENGTH_SHORT).show();
-
-                                    Intent intent = new Intent("success");
-//                                    StringBuffer userName = getUserName(number);//自制用户名
-                                    intent.putExtra("name",number);
-
-
-                                    sendBroadcast(intent);
-
-                                    finish();
-
-                                }else {
-                                    Toast.makeText(LogInActivity.this,"用户名或密码错误",Toast.LENGTH_SHORT).show();
-                                }
-                            }else{
-                                Toast.makeText(LogInActivity.this,"用户名或密码错误",Toast.LENGTH_SHORT).show();
-                            }
-
-                        }else{
-                            Toast.makeText(LogInActivity.this,"网络异常，请检查网络!",Toast.LENGTH_SHORT).show();
-                        }
-                    }
-                });
+//                //查询数据
+//                BmobQuery<RegisterPeople> bmobQuery = new BmobQuery<RegisterPeople>();
+//
+//                bmobQuery.addWhereEqualTo("number", phoneNum);
+//                bmobQuery.findObjects(new FindListener<RegisterPeople>() {
+//                    @Override
+//                    public void done(List<RegisterPeople> list, BmobException e) {
+//
+//                        if(e==null){
+//                            Log.i("TAG", "LogInActivity.done.poneNum+secretNum"+phoneNum+secretNum);
+//                            if(list.size()!=0){
+//                                String password = list.get(0).getPassword();
+//                                String number = list.get(0).getNumber();
+//                                Log.i("TAG", "LogInActivity.done."+password);
+//                                if(secretNum.equals(password)){
+//                                    Toast.makeText(LogInActivity.this,"登录成功",Toast.LENGTH_SHORT).show();
+//
+//                                    Intent intent = new Intent("success");
+////                                    StringBuffer userName = getUserName(number);//自制用户名
+//                                    intent.putExtra("name",number);
+//
+//
+//                                    sendBroadcast(intent);
+//
+//                                    finish();
+//
+//                                }else {
+//                                    Toast.makeText(LogInActivity.this,"用户名或密码错误",Toast.LENGTH_SHORT).show();
+//                                }
+//                            }else{
+//                                Toast.makeText(LogInActivity.this,"用户名或密码错误",Toast.LENGTH_SHORT).show();
+//                            }
+//
+//                        }else{
+//                            Toast.makeText(LogInActivity.this,"网络异常，请检查网络!",Toast.LENGTH_SHORT).show();
+//                        }
+//                    }
+//                });
 
             }else{
                 return;
