@@ -2,7 +2,7 @@ package com.example.administrator.yicheng;
 
 import android.app.Application;
 
-import cn.bmob.sms.BmobSMS;
+import com.facebook.drawee.backends.pipeline.Fresco;
 
 
 /**
@@ -13,6 +13,6 @@ public class MyApp extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
-        BmobSMS.initialize(this, "ac66f212be27a6f0d9135f158f0d7533");
+        Fresco.initialize(this);
     }
 }

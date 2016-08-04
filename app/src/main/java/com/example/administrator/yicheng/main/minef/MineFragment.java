@@ -5,12 +5,10 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
-import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.administrator.yicheng.R;
 import com.example.administrator.yicheng.base.BaseFragment;
@@ -23,8 +21,7 @@ import com.example.administrator.yicheng.utils.SharedPreferenceUtils;
 
 import butterknife.BindView;
 
-public class MineFragment extends BaseFragment implements MineContract.View, View.OnClickListener {
-
+public class MineFragment extends BaseFragment implements MineContract.View,View.OnClickListener{
 
     @BindView(R.id.fourFragment_Login)
     ImageView fourFragmentLogin;

@@ -29,6 +29,7 @@ import cn.bmob.sms.exception.BmobException;
 import cn.bmob.sms.listener.RequestSMSCodeListener;
 import cn.bmob.sms.listener.VerifySMSCodeListener;
 
+
 /**
  * Created by Administrator on 2016/8/2.
  */
@@ -187,11 +188,11 @@ public class RegisterActivity extends BaseActivity {
 //                    SharedPreferenceUtils.putAndApply(RegisterActivity.this,getUserName(phoneNum).toString(),"保密");
 //                    finish();
 //                }else{
-//                    // toast("创建数据失败：" + e.getMessage());
-//                    Toast.makeText(RegisterActivity.this,"注册失败",Toast.LENGTH_SHORT).show();
-//                }
-//            }
-//        });
+                    // toast("创建数据失败：" + e.getMessage());
+                    Toast.makeText(RegisterActivity.this,"注册失败",Toast.LENGTH_SHORT).show();
+ //               }
+ //           }
+ //       });
     }
     private StringBuffer getUserName(String number) {//自动生成用户名
         StringBuffer stringBuffer = new StringBuffer();

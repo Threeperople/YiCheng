@@ -20,19 +20,12 @@ public abstract class BaseFragment extends Fragment implements IBaseView{
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(getLayoutId(), null);
+        View view = inflater.inflate(getLayoutId(), container,false);
         bind = ButterKnife.bind(this, view);
         initView();
-
         initData();
 
         return view;
-    }
-
-    @Override
-    public void onDestroy() {
-        super.onDestroy();
-        bind.unbind();
     }
 
     protected abstract void initData();
@@ -41,5 +34,9 @@ public abstract class BaseFragment extends Fragment implements IBaseView{
 
     protected abstract int getLayoutId();
 
-
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        bind.unbind();
+    }
 }

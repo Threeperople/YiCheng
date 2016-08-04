@@ -1,0 +1,11 @@
+package com.example.administrator.yicheng.config;
+
+/**
+ * Created by Jensen on 2016/8/2.
+ */
+public class Types {
+    public static final int TITLE_TYPE=1;
+    public static final int HOT_TYPE=2;
+    public static final int HOT_CONTNT_TYPE=3;
+
+}

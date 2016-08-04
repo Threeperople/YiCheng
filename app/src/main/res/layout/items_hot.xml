@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:paddingLeft="15dp"
+    android:paddingRight="15dp"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+    <com.facebook.drawee.view.SimpleDraweeView
+        android:id="@+id/iv_Content"
+        android:layout_gravity="center"
+        app:failureImageScaleType="centerInside"
+        app:retryImageScaleType="centerCrop"
+        android:layout_width="match_parent"
+        android:layout_height="200dp" />
+    <TextView
+        android:id="@+id/ContentTitle"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="aaaaaaaaaaaaaaa"
+        android:maxLines="2"/>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:orientation="horizontal"
+        android:layout_height="wrap_content">
+        <ImageView
+            android:src="@mipmap/icon_label"
+            android:layout_width="15dp"
+            android:layout_height="wrap_content" />
+        <TextView
+            android:id="@+id/editor"
+            android:text="aaa"
+            android:layout_width="wrap_content"
+            android:layout_marginLeft="5dp"
+            android:textSize="12sp"
+            android:textColor="#77999999"
+            android:gravity="center"
+            android:layout_height="match_parent" />
+        <TextView
+            android:id="@+id/tv_time"
+            android:layout_width="wrap_content"
+            android:text="aaaa"
+            android:textSize="12sp"
+            android:layout_marginLeft="10dp"
+            android:gravity="center"
+            android:textColor="#77999999"
+            android:layout_height="match_parent" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:orientation="horizontal"
+            android:gravity="end"
+            android:layout_height="match_parent">
+            <ImageView
+                android:layout_width="15dp"
+                android:layout_height="match_parent"
+                android:src="@drawable/register_icon_view"/>
+            <TextView
+                android:id="@+id/lookNum"
+                android:textSize="12sp"
+                android:layout_marginLeft="10dp"
+                android:gravity="center"
+                android:textColor="#77999999"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:text="bbbbb"/>
+        </LinearLayout>
+    </LinearLayout>
+</LinearLayout>
