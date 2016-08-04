@@ -25,7 +25,7 @@ public class RetrofitHelper {
     public Retrofit retrofit;
     public Gson gson;
 
-    public <T> T createRetrofitService(Class<T> service) {
+    public <T> T createRetrofitService(Class<T> service) {//请求网络，并对数据造型
         if (retrofit == null) {
             createGson();
             initRetrofit();
