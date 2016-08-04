@@ -114,7 +114,7 @@ public class ReadFragment extends BaseFragment implements ReadContract.View,CanR
         if(contentList.size()==0) {
           presenter.getList(Types.HOT_TYPE,num);
         }
-        listAdapter = new MyListAdapter(contentList);
+        listAdapter = new MyListAdapter(contentList,getActivity());
         canContentView.setAdapter(listAdapter);
          titleAdapter = new MyTitleAdapter(titles, getActivity());
             rv.setAdapter(titleAdapter);

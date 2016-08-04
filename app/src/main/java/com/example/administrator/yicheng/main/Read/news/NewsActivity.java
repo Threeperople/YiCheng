@@ -92,7 +92,7 @@ public class NewsActivity extends BaseActivity implements NewsContract.View, Can
         fresh.setOnLoadMoreListener(this);
         fresh.setOnRefreshListener(this);
         fresh.setStyle(1, 0);
-        adapter = new MyListAdapter(ContentList);
+        adapter = new MyListAdapter(ContentList,this);
         canContentView.setAdapter(adapter);
     }
 

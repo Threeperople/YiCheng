@@ -1,5 +1,7 @@
 package com.example.administrator.yicheng.adapter;
 
+import android.content.Context;
+import android.content.Intent;
 import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,6 +13,7 @@ import android.widget.TextView;
 
 import com.example.administrator.yicheng.R;
 import com.example.administrator.yicheng.bean.Content;
+import com.example.administrator.yicheng.main.Read.webcontent.WebActivity;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -22,10 +25,11 @@ import java.util.List;
  */
 public class MyListAdapter extends BaseAdapter {
     private List<Content> mList;
+    private Context mContext;
 
-
-    public MyListAdapter(List<Content> list){
+    public MyListAdapter(List<Content> list,Context context){
         mList=list;
+        mContext=context;
     }
     @Override
     public int getCount() {
@@ -72,6 +76,7 @@ public class MyListAdapter extends BaseAdapter {
         viewHolder.tv_time.setText(time);
      //   Picasso.with(parent.getContext()).load(content.getPics()).into(viewHolder.iv_Content);
         viewHolder.iv_Content.setImageURI(Uri.parse(content.getPics()));
+        viewHolder.iv_Content.setTag(content.getSummary());
         return convertView;
     }
 
@@ -99,7 +104,12 @@ public class MyListAdapter extends BaseAdapter {
 
         @Override
         public void onClick(View v) {
-
+            String str= (String) iv_Content.getTag();
+            if(str!=null){
+                Intent intent=new Intent(mContext, WebActivity.class);
+                intent.putExtra("url",str);
+                mContext.startActivity(intent);
+            }
         }
     }
 }
