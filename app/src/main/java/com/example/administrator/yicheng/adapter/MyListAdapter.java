@@ -52,7 +52,11 @@ public class MyListAdapter extends BaseAdapter {
         Content content = mList.get(position);
         viewHolder.tv_Content.setText(content.getTitle());
         viewHolder.tv_Editor.setText(content.getTags());
-        viewHolder.tv_lookNum.setText(content.getJdata());
+        String substring = content.getMtime().substring(content.getMtime().length() - 3);
+        if ("000".equals(String.valueOf(substring))) {
+                substring = content.getMtime().substring(content.getMtime().length() - 4);
+            }
+        viewHolder.tv_lookNum.setText(substring);
         Date date =new Date(Long.valueOf(content.getMtime())*1000);
         Date date1=new Date(System.currentTimeMillis());
         SimpleDateFormat sFormat = new SimpleDateFormat("MM月dd日");
@@ -80,7 +84,7 @@ public class MyListAdapter extends BaseAdapter {
         return viewHolder;
     }
 
-    class MyListViewHolder{
+    class MyListViewHolder implements View.OnClickListener{
         private ImageView iv_Content;
         private TextView tv_Content,tv_Editor,tv_time,tv_lookNum;
 
@@ -90,6 +94,12 @@ public class MyListAdapter extends BaseAdapter {
             this.tv_Editor = (TextView) v.findViewById(R.id.editor);
             this.tv_time = (TextView) v.findViewById(R.id.tv_time);
             this.tv_lookNum = (TextView) v.findViewById(R.id.lookNum);
+            v.setOnClickListener(this);
+        }
+
+        @Override
+        public void onClick(View v) {
+
         }
     }
 }

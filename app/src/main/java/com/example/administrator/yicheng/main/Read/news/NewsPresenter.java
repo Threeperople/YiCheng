@@ -1,5 +1,7 @@
 package com.example.administrator.yicheng.main.Read.news;
 
+import android.util.Log;
+
 import com.example.administrator.yicheng.base.BaseActivity;
 import com.example.administrator.yicheng.bean.ContentBean;
 import com.example.administrator.yicheng.config.Types;
@@ -29,9 +31,25 @@ public class NewsPresenter implements NewsContract.Presenter{
         map.clear();
         switch (type){
             case Types.HOT_TYPE:
-                map.put(Urlconfig.TIDS,Urlconfig.HOT_TIDS);
+                map.put(Urlconfig.TIDS,id);
                 map.put(Urlconfig.MSGID,"41000");
                 map.put(Urlconfig.UP,"0");
+                model.getContentList(type, map, new Callback<ContentBean>() {
+                    @Override
+                    public void onResponse(Call<ContentBean> call, Response<ContentBean> response) {
+                        activity.getContentList(response.body().getData(),type);
+                        Log.i("TAG", "onResponse: "+response.body().getData().get(0).getMtime());
+                    }
+
+                    @Override
+                    public void onFailure(Call<ContentBean> call, Throwable t) {
+                    }
+                });
+                break;
+            case Types.HOT_CONTNT_TYPE:
+                map.put(Urlconfig.TIDS,id);
+                map.put(Urlconfig.MSGID,num+"");
+                map.put(Urlconfig.UP,"1");
                 model.getContentList(type, map, new Callback<ContentBean>() {
                     @Override
                     public void onResponse(Call<ContentBean> call, Response<ContentBean> response) {

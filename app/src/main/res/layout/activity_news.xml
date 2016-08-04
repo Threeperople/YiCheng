@@ -8,7 +8,7 @@
         android:id="@+id/fresh"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-        <com.canyinghao.canrefresh.yalantis.YalantisPhoenixRefreshView
+        <com.canyinghao.canrefresh.google.GoogleCircleHookRefreshView
             android:id="@id/can_refresh_header"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"/>
@@ -16,11 +16,10 @@
             android:id="@id/can_refresh_footer"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"/>
-        <ListView
+        <com.example.administrator.yicheng.view.PullToZoomListView
             android:id="@+id/can_content_view"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-     </ListView>
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"/>
     </com.canyinghao.canrefresh.CanRefreshLayout>
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/fab"

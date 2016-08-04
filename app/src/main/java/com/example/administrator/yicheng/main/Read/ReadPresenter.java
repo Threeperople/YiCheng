@@ -80,7 +80,6 @@ public class ReadPresenter implements ReadContract.Presenter {
 
                     @Override
                     public void onFailure(Call<ContentBean> call, Throwable t) {
-                        Log.i("TAG", "1onFailure: "+t.toString());
                     }
                 });
                 break;

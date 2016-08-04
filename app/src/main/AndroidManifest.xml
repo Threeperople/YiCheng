@@ -24,6 +24,7 @@
         <activity android:name=".main.minef.login.setting.SettingActivity"/>
         <activity android:name=".main.minef.store.StoreActicity"/>
         <activity android:name=".main.minef.settingAPP.SettingAppActivity"/>
+        <activity android:name=".main.Read.webcontent.WebActivity"/>
     </application>
 
 </manifest>
