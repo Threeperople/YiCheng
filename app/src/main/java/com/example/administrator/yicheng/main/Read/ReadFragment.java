@@ -100,7 +100,6 @@ public class ReadFragment extends BaseFragment implements ReadContract.View,CanR
         presenter = new ReadPresenter(model,this);
         canRefresh.setOnLoadMoreListener(this);
         canRefresh.setOnRefreshListener(this);
-        canRefresh.setStyle(1, 0);
     }
 
     @Override
