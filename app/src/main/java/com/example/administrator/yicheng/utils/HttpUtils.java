@@ -31,8 +31,8 @@ public class HttpUtils {
     public void getBlogdaymainData(String params, final HttpCallBack<BlogdayContentmain> entityHttpCallBack) {
         Call<BlogdayContentmain> blogdayContentmainCall = RetrofitHelper
                 .getInstance()
-                .createRetrofitService(BlogDayService.class)
-                .getBlogdaymain(params);
+                .createRetrofitService(BlogDayService.class)//初始化retrofit
+                .getBlogdaymain(params);//添加参数
         blogdayContentmainCall.enqueue(new Callback<BlogdayContentmain>() {
             @Override
             public void onResponse(Call<BlogdayContentmain> call, Response<BlogdayContentmain> response) {
