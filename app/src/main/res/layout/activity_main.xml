@@ -17,8 +17,9 @@
     <RadioGroup
         android:id="@+id/the_main_activity_RadioGroup"
         android:orientation="horizontal"
+        android:background="@color/title"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="63dp">
         <RadioButton
             android:id="@+id/main_RadioGroup_one_blog_day"
             style="@style/radioGroup_style"
