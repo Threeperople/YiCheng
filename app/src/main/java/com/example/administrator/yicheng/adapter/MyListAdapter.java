@@ -76,7 +76,7 @@ public class MyListAdapter extends BaseAdapter {
         viewHolder.tv_time.setText(time);
      //   Picasso.with(parent.getContext()).load(content.getPics()).into(viewHolder.iv_Content);
         viewHolder.iv_Content.setImageURI(Uri.parse(content.getPics()));
-        viewHolder.iv_Content.setTag(content.getSummary());
+        viewHolder.iv_Content.setTag(content);
         return convertView;
     }
 
@@ -104,10 +104,10 @@ public class MyListAdapter extends BaseAdapter {
 
         @Override
         public void onClick(View v) {
-            String str= (String) iv_Content.getTag();
-            if(str!=null){
+            Content content= (Content) iv_Content.getTag();
+            if(content!=null){
                 Intent intent=new Intent(mContext, WebActivity.class);
-                intent.putExtra("url",str);
+                intent.putExtra("contenturl",content);
                 mContext.startActivity(intent);
             }
         }

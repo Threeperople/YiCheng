@@ -2,7 +2,9 @@ package com.example.administrator.yicheng.bean;
 
 import com.google.gson.annotations.SerializedName;
 
-public  class BlogdaycontentItem {
+import java.io.Serializable;
+
+public  class BlogdaycontentItem implements Serializable{
         @SerializedName("id")
         private String id;
         @SerializedName("docid")

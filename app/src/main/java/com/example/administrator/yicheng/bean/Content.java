@@ -1,13 +1,15 @@
 package com.example.administrator.yicheng.bean;
 
-
+import com.facebook.drawee.components.DeferredReleaser;
 import com.google.gson.annotations.SerializedName;
+
+import java.io.Serializable;
 
 /**
  * Created by Jensen on 2016/8/3.
  */
 
-public  class Content {
+public  class Content implements Serializable{
         @SerializedName("msgid")
         private String msgid;
         @SerializedName("channelid")

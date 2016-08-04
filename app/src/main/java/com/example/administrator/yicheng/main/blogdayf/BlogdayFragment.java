@@ -17,7 +17,6 @@ import android.widget.Toast;
 
 import com.canyinghao.canrefresh.CanRefreshLayout;
 import com.canyinghao.canrefresh.classic.RotateRefreshView;
-import com.canyinghao.canrefresh.google.GoogleCircleHookRefreshView;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.example.administrator.yicheng.R;
 import com.example.administrator.yicheng.base.BaseFragment;
@@ -84,9 +83,9 @@ public class BlogdayFragment extends BaseFragment implements BlogdayContract.Vie
             @Override
             public void onItemClick(View view, int i) {
 
-                String url = list.get(i).getUrl();
+                BlogdaycontentItem item = list.get(i);
                 Intent intent = new Intent(getContext(), WebActivity.class);
-                intent.putExtra("url", url);
+                intent.putExtra("url",item);
                 startActivity(intent);
             }
         });
@@ -115,7 +114,6 @@ public class BlogdayFragment extends BaseFragment implements BlogdayContract.Vie
 
                 list.addAll(blogdaycontentItems);
                 adapter.notifyDataSetChanged();
-
                 canRefresh.loadMoreComplete();
             }
         });
