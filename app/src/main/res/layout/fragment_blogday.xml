@@ -1,13 +1,42 @@
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context=".main.MainActivity">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <android.support.v7.widget.Toolbar
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <TextView
+            android:id="@+id/blogday_item_month"
+            android:gravity="center"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="往期*07月"
+            android:textSize="24sp"
+            />
+    </android.support.v7.widget.Toolbar>
+    <com.canyinghao.canrefresh.CanRefreshLayout
+        android:id="@+id/canRefresh"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="blogday" />
+        >
+        <com.canyinghao.canrefresh.google.GoogleCircleHookRefreshView
+            android:id="@id/can_refresh_header"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+        <com.canyinghao.canrefresh.classic.RotateRefreshView
+            android:id="@id/can_refresh_footer"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+        <android.support.v7.widget.RecyclerView
+            android:id="@id/can_content_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginRight="5dp"
+            android:layout_marginLeft="10dp"
+            />
+    </com.canyinghao.canrefresh.CanRefreshLayout>
 
-</FrameLayout>
+</LinearLayout>

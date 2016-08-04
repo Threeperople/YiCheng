@@ -25,6 +25,7 @@
             style="@style/radioGroup_style"
             android:drawableTop="@drawable/icon_blog_day_selector"
             android:text="日荐"
+            android:checked="true"
             />
         <RadioButton
             android:id="@+id/main_RadioGroup_two_reading"

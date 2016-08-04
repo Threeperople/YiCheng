@@ -1,5 +1,6 @@
 package com.example.administrator.yicheng.bean;
 
+
 import com.google.gson.annotations.SerializedName;
 
 /**

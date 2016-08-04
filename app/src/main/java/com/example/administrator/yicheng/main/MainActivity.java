@@ -22,6 +22,11 @@ public class MainActivity extends BaseActivity implements MainContract.View {
 
     @Override
     public void initView() {
+
+        getSupportFragmentManager().beginTransaction().replace(R.id.the_main_activity_LinearLayoutContainer,
+                FragmentFactory.creatFragment(FragmentFactory.Blogday_fragment)).commit();
+
+
         theMainActivityRadioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup group, int checkedId) {
