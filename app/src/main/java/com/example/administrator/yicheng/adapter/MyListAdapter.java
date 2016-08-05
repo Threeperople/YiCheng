@@ -107,7 +107,7 @@ public class MyListAdapter extends BaseAdapter {
             Content content= (Content) iv_Content.getTag();
             if(content!=null){
                 Intent intent=new Intent(mContext, WebActivity.class);
-                intent.putExtra("contenturl" , content);
+                intent.putExtra("contenturl",content);
                 mContext.startActivity(intent);
             }
         }
