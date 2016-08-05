@@ -47,7 +47,7 @@ public class BdlocationUtils {
      *
      */
     public static interface MyLocationListener {
-        public void myLocatin(double mylongitude, double mylatitude, String city, String street);
+        public void myLocatin(double mylongitude , double mylatitude, String city, String street);
     }
 
     /**
