@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.design.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <android.support.design.widget.CollapsingToolbarLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+    <WebView
+        android:id="@+id/wv_cityPlay"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        >
+    </WebView>
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/fab"
+        android:layout_width="wrap_content"
+        app:fabSize="mini"
+        android:layout_margin="10dp"
+        app:backgroundTint="#2000"
+        android:src="@mipmap/icon_back_arrow"
+        android:layout_height="wrap_content" />
+        <LinearLayout
+            android:id="@+id/ll_cityPaly"
+            android:layout_width="match_parent"
+            android:orientation="horizontal"
+            android:layout_height="60dp"
+            android:layout_gravity="bottom"
+            >
+            <include layout="@layout/activity_city_play_bottom"
+                />
+            <Button
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:text="@string/apply"
+                android:textColor="@color/white"
+                android:background="@color/text_focus"
+                android:textSize="23sp"
+                android:layout_weight="3"
+                />
+            
+        </LinearLayout>
+    </android.support.design.widget.CollapsingToolbarLayout>
+
+</android.support.design.widget.CoordinatorLayout>

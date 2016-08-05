@@ -1,8 +1,13 @@
 package com.example.administrator.yicheng.utils;
 
 import com.example.administrator.yicheng.bean.BlogdayContentmain;
+import com.example.administrator.yicheng.bean.ProfileBean;
 import com.example.administrator.yicheng.retrofit.BlogDayService;
+import com.example.administrator.yicheng.retrofit.ProfileRetrofitHelper;
+import com.example.administrator.yicheng.retrofit.ProfileService;
 import com.example.administrator.yicheng.retrofit.RetrofitHelper;
+
+import java.util.HashMap;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -23,6 +28,9 @@ public class HttpUtils {
         }
         return instance;
     }
+
+
+
     public interface HttpCallBack<T>{
         public void onSucess(T t);
         public void onFail();
@@ -42,6 +50,27 @@ public class HttpUtils {
 
             @Override
             public void onFailure(Call<BlogdayContentmain> call, Throwable t) {
+                entityHttpCallBack.onFail();
+            }
+        });
+
+
+    }
+
+    public void getProfileBeanData(HashMap<String,String> params, final HttpCallBack<ProfileBean> entityHttpCallBack) {
+        Call<ProfileBean> blogdayContentmainCall = ProfileRetrofitHelper
+                .getInstance()
+                .createRetrofitService(ProfileService.class)
+                .getProfileBean(params);
+        blogdayContentmainCall.enqueue(new Callback<ProfileBean>() {
+            @Override
+            public void onResponse(Call<ProfileBean> call, Response<ProfileBean> response) {
+                ProfileBean profileBean = response.body();
+                entityHttpCallBack.onSucess(response.body());
+            }
+
+            @Override
+            public void onFailure(Call<ProfileBean> call, Throwable t) {
                 entityHttpCallBack.onFail();
             }
         });

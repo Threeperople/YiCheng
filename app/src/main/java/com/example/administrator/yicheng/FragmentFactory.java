@@ -32,11 +32,12 @@ public class FragmentFactory {
                     fragment=new ReadFragment();
                     break;
                 case Activity_fragment:
-                    //这是“活动”页面对应的fragment
+                    //这是“我”页面对应的fragment
+
                     fragment=new MineFragment();
                     break;
                 case Profile_fragment:
-                    //这是“我”页面对应的fragment
+                    //这是“活动”页面对应的fragment
                     fragment=new ProfileFragment();
                     break;
             }

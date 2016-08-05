@@ -1,6 +1,5 @@
 package com.example.administrator.yicheng.main.blogdayf;
 
-import android.view.View;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
@@ -13,7 +12,7 @@ import java.util.List;
 /**
  * Created by Administrator on 2016/8/4.
  */
-public class BlogdayAdapter extends BaseQuickAdapter<BlogdaycontentItem>{
+public class BlogdayAdapter extends BaseQuickAdapter<BlogdaycontentItem> {
 
 
     public BlogdayAdapter(int layoutResId, List<BlogdaycontentItem> data) {
@@ -23,7 +22,6 @@ public class BlogdayAdapter extends BaseQuickAdapter<BlogdaycontentItem>{
 
     @Override
     protected void convert(BaseViewHolder baseViewHolder, BlogdaycontentItem blogdaycontentItem) {
-
         baseViewHolder.setText(R.id.blogday_item_title,blogdaycontentItem.getTitle());
 
         String day = blogdaycontentItem.getDay().substring(6, 8);
@@ -32,5 +30,6 @@ public class BlogdayAdapter extends BaseQuickAdapter<BlogdaycontentItem>{
         SimpleDraweeView imageBack=(SimpleDraweeView)baseViewHolder.getView(R.id.blogday_item_backImage);
         imageBack.setImageURI(blogdaycontentItem.getImages());
     }
+
 
 }
