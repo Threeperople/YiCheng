@@ -4,6 +4,7 @@ package com.example.administrator.yicheng.config;
  * Created by Jensen on 2016/7/29.
  */
 public class Urls {
+    public static final String CITYURL="http://cityfun.me/Dailyapi/";
     public  static  final String BASEURL="http://cityfun.me/cityfunapi/";
     public static final String BASECONTENT="http://cityfun.me/cityfunapi/content/";
     public static final String IMG="http://cityfun.me/cityfunapi/find/advise?num=10";

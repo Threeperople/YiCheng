@@ -34,7 +34,8 @@
             android:name="UMENG_APPKEY"
             android:value="57a32b4067e58e677f003c25" >
         </meta-data>
-        <activity android:name=".main.MainActivity">
+        <activity android:name=".main.MainActivity"
+            android:launchMode="singleTask">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
@@ -85,6 +86,7 @@
             android:name="com.baidu.location.f"
             android:enabled="true"
             android:process=":remote"/>
+        <activity android:name=".main.Read.location.LocationActivity"/>
     </application>
 
 </manifest>
