@@ -7,7 +7,6 @@
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.READ_LOGS" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
@@ -17,6 +16,10 @@
     <uses-permission android:name="android.permission.GET_ACCOUNTS" />
     <uses-permission android:name="android.permission.USE_CREDENTIALS" />
     <uses-permission android:name="android.permission.MANAGE_ACCOUNTS" />
+    <uses-permission android:name="com.android.launcher.permission.READ_SETTINGS" />
+    <uses-permission android:name="android.permission.WAKE_LOCK"/>
+    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
+    <uses-permission android:name="android.permission.WRITE_SETTINGS" />
     <application
         android:allowBackup="true"
         android:name=".MyApp"
@@ -24,6 +27,9 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <meta-data
+            android:name="com.baidu.lbsapi.API_KEY"
+            android:value="XzbFVk1t3EPhGqLtQBwOgxQasmQmtsHP" />
         <meta-data
             android:name="UMENG_APPKEY"
             android:value="57a32b4067e58e677f003c25" >
@@ -75,6 +81,10 @@
             android:name="com.tencent.connect.common.AssistActivity"
             android:screenOrientation="portrait"
             android:theme="@android:style/Theme.Translucent.NoTitleBar" />
+        <service
+            android:name="com.baidu.location.f"
+            android:enabled="true"
+            android:process=":remote"/>
     </application>
 
 </manifest>
