@@ -12,12 +12,16 @@ import android.widget.TextView;
 
 import com.example.administrator.yicheng.R;
 import com.example.administrator.yicheng.base.BaseFragment;
+import com.example.administrator.yicheng.bean.RegisterPeople;
 import com.example.administrator.yicheng.main.minef.login.LogInActivity;
 import com.example.administrator.yicheng.main.minef.login.setting.SettingActivity;
 import com.example.administrator.yicheng.main.minef.msg.MsgActivity;
 import com.example.administrator.yicheng.main.minef.settingAPP.SettingAppActivity;
 import com.example.administrator.yicheng.main.minef.store.StoreActicity;
+import com.example.administrator.yicheng.utils.LiteOrmUtils;
 import com.example.administrator.yicheng.utils.SharedPreferenceUtils;
+
+import java.util.List;
 
 import butterknife.BindView;
 
@@ -121,16 +125,16 @@ public class MineFragment extends BaseFragment implements MineContract.View,View
     class MyReceiver extends BroadcastReceiver {
         @Override
         public void onReceive(Context context, Intent intent) {
-            String type="";
             String action = intent.getAction();
-            String name = intent.getStringExtra("name");
+            String number = intent.getStringExtra("name");
 
-            String nameFromPhoneNum = (String) SharedPreferenceUtils.get(getActivity(), name, type);
-            String  sex = (String) SharedPreferenceUtils.get(getActivity(), nameFromPhoneNum, type);
+            List<RegisterPeople> peoples = LiteOrmUtils.getQueryByWhere(RegisterPeople.class, "number", new String[]{number});
+            String userName = peoples.get(0).getUserName();
+            String sex = peoples.get(0).getSex();
 
 
             if("success".equals(action)){
-                fourFragmentTopName.setText(nameFromPhoneNum);
+                fourFragmentTopName.setText(userName);
                 fourFragmentTopName.setTextSize(16);
 
                 fourFragmentEtSex.setText(sex);

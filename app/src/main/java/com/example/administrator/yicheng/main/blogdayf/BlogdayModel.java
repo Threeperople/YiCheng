@@ -11,6 +11,8 @@ public class BlogdayModel implements BlogdayContract.Model {
 
     @Override
     public void getBlogdaymain(String params, HttpUtils.HttpCallBack<BlogdayContentmain> callBack) {
+
         HttpUtils.getInstance().getBlogdaymainData(params,callBack);
+
     }
 }
