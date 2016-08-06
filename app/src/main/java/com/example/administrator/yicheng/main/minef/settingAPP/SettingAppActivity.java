@@ -92,18 +92,22 @@ public class SettingAppActivity extends BaseActivity implements DashSpinner.OnDo
         isLogIn();
 
         settingAppProgressSpinner.setOnDownloadIntimationListener(this);
+
+        //滑动按钮控制推送关闭与开启
         slideSwitchSetting.setSlideListener(new SlideSwitch.SlideListener() {
             @Override
             public void open() {//开启推送
                 openFlag=true;
-//                SharedPreferenceUtils.putAndApply(SettingAppActivity.this, Flags.IsAcceptMsgFlag, true);
+                SharedPreferenceUtils.putAndApply(SettingAppActivity.this, Flags.IsAcceptMsgFlag, true);
             }
 
             @Override
             public void close() {//关闭推送
                 openFlag=false;
-//                JPushInterface.onPause(SettingAppActivity.this);
-
+                Boolean  o = (Boolean) SharedPreferenceUtils.get(SettingAppActivity.this, Flags.IsAcceptMsgFlag, false);
+                if(o==true){
+                    SharedPreferenceUtils.remove(SettingAppActivity.this,Flags.IsAcceptMsgFlag);
+                }
             }
         });
     }
@@ -150,19 +154,33 @@ public class SettingAppActivity extends BaseActivity implements DashSpinner.OnDo
                 break;
 
             case R.id.settingapp_scoreToApp://为我们打分
+                Intent intent1 = new Intent("android.intent.action.MAIN");
+
+                intent1.addCategory("android.intent.category.APP_MARKET");
+                intent1.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                startActivity(intent1);
+
 
                 break;
 
             case R.id.settingapp_about://关于我们
                 startActivity(new Intent(this, AboutUsActivity.class));
+                overridePendingTransition(R.anim.in_from_right,R.anim.out_to_left);
                 break;
 
             case R.id.setting_exitApp://如果登录就退出，未登录按钮无法点击
                 Boolean logIn = (Boolean) SharedPreferenceUtils.get(this, Flags.IsLogInFlag, false);
                 if (logIn != null) {
-                    SharedPreferenceUtils.remove(this, Flags.IsLogInFlag);
+                    if(logIn==true){
+                        SharedPreferenceUtils.remove(this, Flags.IsLogInFlag);
+                        Intent intent = new Intent("exitLogIn");
+                        intent.putExtra("exit", "exit");
+                        sendBroadcast(intent);
+
+                        settingExitApp.setAlpha(122);
+                        settingExitApp.setEnabled(false);
+                    }
                 }
-                isLogIn();//判断是否登录
                 break;
         }
     }
@@ -199,9 +217,9 @@ public class SettingAppActivity extends BaseActivity implements DashSpinner.OnDo
     private void setttingAccept() {
         Boolean accept = (Boolean) SharedPreferenceUtils.get(SettingAppActivity.this, Flags.IsAcceptMsgFlag, false);
         if (accept) {
-            slideSwitchSetting.setState(true);
+            slideSwitchSetting.moveToDest(true);
         } else {
-            slideSwitchSetting.setState(false);
+            slideSwitchSetting.moveToDest(false);
         }
 
     }
