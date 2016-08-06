@@ -62,7 +62,8 @@
             android:name="UMENG_APPKEY"
             android:value="57a32b4067e58e677f003c25"></meta-data>
 
-        <activity android:name=".main.MainActivity">
+        <activity android:name=".main.MainActivity"
+            android:launchMode="singleTask">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -188,6 +189,7 @@
             android:value="21c6b12d27cdd7c225be619d" />
         <!-- </>值来自开发者平台取得的AppKey -->
         <activity android:name=".main.minef.settingAPP.aboutus.AboutUsActivity"></activity>
+        <activity android:name=".main.Read.location.LocationActivity"/>
     </application>
 
 </manifest>

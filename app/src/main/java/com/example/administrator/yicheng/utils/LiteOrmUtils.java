@@ -4,7 +4,6 @@ import android.content.Context;
 
 import com.litesuits.orm.LiteOrm;
 import com.litesuits.orm.db.assit.QueryBuilder;
-import com.litesuits.orm.db.assit.WhereBuilder;
 import com.litesuits.orm.db.model.ConflictAlgorithm;
 
 import java.util.ArrayList;
@@ -71,11 +70,10 @@ public class LiteOrmUtils {
      * 查询  某字段 等于 Value的值
      * @param cla
      * @param field
-     * @param value
      * @return
      */
-    public static <T> List<T> getQueryByWhere(Class<T> cla,String field,String [] value){
-        return liteOrm.<T>query(new QueryBuilder(cla).where(field + "=?", value));
+    public static <T> List<T> getQueryByWhere(Class<T> cla,String field,String[] args){
+        return liteOrm.<T>query(new QueryBuilder(cla).where(field + "=?", args));
     }
 
 
