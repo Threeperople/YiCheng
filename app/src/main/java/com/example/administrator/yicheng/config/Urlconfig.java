@@ -11,4 +11,8 @@ public class Urlconfig {
     public static final String TIDS="tids";
     public static final String MSGID="msgid";
     public static final String UP="up";
+    public static final String CIDS="cids";
+    public static final String CODE="code";
+
+
 }

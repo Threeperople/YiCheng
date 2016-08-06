@@ -25,11 +25,17 @@ import com.example.administrator.yicheng.adapter.MyListAdapter;
 import com.example.administrator.yicheng.adapter.MyTitleAdapter;
 import com.example.administrator.yicheng.base.BaseFragment;
 import com.example.administrator.yicheng.bean.City;
+import com.example.administrator.yicheng.bean.CityTitle;
+import com.example.administrator.yicheng.bean.CityTitleBean;
 import com.example.administrator.yicheng.bean.Content;
 import com.example.administrator.yicheng.bean.Title;
 import com.example.administrator.yicheng.config.Types;
+import com.example.administrator.yicheng.config.Urls;
 import com.example.administrator.yicheng.main.Read.location.LocationActivity;
 import com.example.administrator.yicheng.utils.BdlocationUtils;
+import com.google.gson.Gson;
+
+import org.greenrobot.eventbus.EventBus;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -111,7 +117,7 @@ public class ReadFragment extends BaseFragment implements ReadContract.View, Can
         }
     };
     private MyReceiver receiver;
-    private City city;
+    private String cityCode=null;
 
     @Override
     public int getLayoutId() {
@@ -143,18 +149,21 @@ public class ReadFragment extends BaseFragment implements ReadContract.View, Can
 
     @Override
     public void initData() {
+        Gson gson=new Gson();
+        CityTitleBean cityTitleBean = gson.fromJson(Urls.CITYJSON, CityTitleBean.class);
+        List<CityTitle> titles = cityTitleBean.getData();
         LinearLayoutManager manager = new LinearLayoutManager(getActivity());
         manager.setOrientation(LinearLayoutManager.HORIZONTAL);
         rv.setLayoutManager(manager);
-        if (titles.size() == 0) {
+        if (this.titles.size() == 0) {
             presenter.getList(Types.TITLE_TYPE, num);
         }
         if (contentList.size() == 0) {
             presenter.getList(Types.HOT_TYPE, num);
         }
-        listAdapter = new MyListAdapter(contentList, getActivity());
+        listAdapter = new MyListAdapter(contentList,null,getActivity());
         canContentView.setAdapter(listAdapter);
-        titleAdapter = new MyTitleAdapter(titles, getActivity());
+        titleAdapter = new MyTitleAdapter(this.titles,titles,tv_city,getActivity());
         rv.setAdapter(titleAdapter);
     }
 
@@ -204,6 +213,7 @@ public class ReadFragment extends BaseFragment implements ReadContract.View, Can
     public void onDestroy() {
         super.onDestroy();
         getActivity().unregisterReceiver(receiver);
+
     }
 
     class MyReceiver extends BroadcastReceiver {
@@ -211,10 +221,10 @@ public class ReadFragment extends BaseFragment implements ReadContract.View, Can
         @Override
         public void onReceive(Context context, Intent intent) {
             if("city".equals(intent.getAction())){
-                city = (City) intent.getSerializableExtra("city");
+               City city = (City) intent.getSerializableExtra("city");
                 cityName = city.getCityname();
+                tv_city.setTag(city.getCitycode());
                 tv_city.setText(cityName);
-
             }
         }
     }

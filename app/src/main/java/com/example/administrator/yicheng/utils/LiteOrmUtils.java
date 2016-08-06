@@ -4,7 +4,6 @@ import android.content.Context;
 
 import com.litesuits.orm.LiteOrm;
 import com.litesuits.orm.db.assit.QueryBuilder;
-import com.litesuits.orm.db.assit.WhereBuilder;
 import com.litesuits.orm.db.model.ConflictAlgorithm;
 
 import java.util.List;
@@ -73,8 +72,8 @@ public class LiteOrmUtils {
      * @param value
      * @return
      */
-    public static <T> List<T> getQueryByWhere(Class<T> cla,String field,String [] value){
-        return liteOrm.<T>query(new QueryBuilder(cla).where(field + "=?", value));
+    public static <T> List<T> getQueryByWhere(Class<T> cla,String field,Object[] args){
+        return liteOrm.<T>query(new QueryBuilder(cla).where(field + "=?", args.toString()));
     }
 
 
