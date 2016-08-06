@@ -71,10 +71,8 @@ public class LocationActivity extends BaseActivity implements LocationContract.V
     public void initView() {
         Intent intent = getIntent();
         String city = intent.getStringExtra("city");
-  //      View header = getLayoutInflater().inflate(R.layout.head_layout, null);
         TextView tv= (TextView) findViewById(R.id.tv_cityNow);
         tv.setText(city);
- //       listView.addHeaderView(header);
         LocationModel model = new LocationModel();
         presenter = new LocationPresenter(model, this);
     }
