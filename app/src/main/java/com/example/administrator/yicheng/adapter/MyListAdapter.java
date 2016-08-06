@@ -50,7 +50,7 @@ public class MyListAdapter extends BaseAdapter {
     public View getView(int position, View convertView, ViewGroup parent) {
         MyListViewHolder viewHolder;
         if(convertView==null){
-            convertView= LayoutInflater.from(parent.getContext()).inflate(R.layout.items_hot,null);
+            convertView= LayoutInflater.from(parent.getContext()).inflate(R.layout.items_hot,parent,false);
         }
         viewHolder = getVieHolder(convertView);
         Content content = mList.get(position);

@@ -48,7 +48,7 @@ public class MyCityAdapter extends BaseAdapter {
     public View getView(int position, View convertView, ViewGroup parent) {
         MyViewHolder holder;
         if(convertView==null){
-            convertView=LayoutInflater.from(parent.getContext()).inflate(R.layout.items_city,null);
+            convertView=LayoutInflater.from(mContext).inflate(R.layout.items_city,parent,false);
         }
         holder=getHolder(convertView);
         City city=mLsit.get(position);
@@ -79,7 +79,7 @@ public class MyCityAdapter extends BaseAdapter {
         public MyViewHolder(View itemView) {
             tv_city= (TextView) itemView.findViewById(R.id.city_name);
             tv_pinyin= (TextView) itemView.findViewById(R.id.city_pinyin);
-            tv_first= (TextView) itemView.findViewById(R.id.tv_first);
+           tv_first= (TextView) itemView.findViewById(R.id.tv_first);
 
         }
 
