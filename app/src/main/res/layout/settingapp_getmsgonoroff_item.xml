@@ -1,13 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/settingapp_getmsgonoroff_item"
+    xmlns:slideswitch="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="40dp"
     android:orientation="horizontal"
     android:layout_marginTop="10dp"
     android:gravity="center"
-    android:background="#ffe"
-    >
+    android:background="#fff">
         <ImageView
             android:layout_width="20dp"
             android:layout_height="wrap_content"
@@ -22,10 +21,14 @@
             android:textSize="18sp"
             android:layout_marginLeft="10dp"
             />
-        <ImageView
-            android:layout_width="20dp"
+        <com.leaking.slideswitch.SlideSwitch
+            android:layout_margin="7dp"
+            android:id="@+id/slideSwitch_setting"
+            android:layout_width="60dip"
             android:layout_height="wrap_content"
-            android:src="@mipmap/icon_next_arrow"
-            android:layout_marginRight="10dp"
-            />
+            slideswitch:isOpen="false"
+            slideswitch:shape="circle"
+            slideswitch:themeColor="#0f0"
+            >
+        </com.leaking.slideswitch.SlideSwitch>
 </LinearLayout>

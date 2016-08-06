@@ -39,5 +39,7 @@ dependencies {
     compile 'com.canyinghao:canrefresh:1.0.4'
     compile 'com.squareup.picasso:picasso:2.5.2'
     compile files('libs/lite-orm-1.9.2.jar')
+    compile 'com.leaking.slideswitch:slideswitch:1.0.0'
+    compile files('libs/jpush-android-2.1.7.jar')
 }
 

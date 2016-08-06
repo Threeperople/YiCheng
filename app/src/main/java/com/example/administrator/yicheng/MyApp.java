@@ -2,8 +2,9 @@ package com.example.administrator.yicheng;
 
 import android.app.Application;
 
-import com.example.administrator.yicheng.utils.LiteOrmUtils;
 import com.facebook.drawee.backends.pipeline.Fresco;
+
+import cn.jpush.android.api.JPushInterface;
 
 
 /**
@@ -15,5 +16,6 @@ public class MyApp extends Application {
     public void onCreate() {
         super.onCreate();
         Fresco.initialize(this);
+        JPushInterface.init(this);
     }
 }

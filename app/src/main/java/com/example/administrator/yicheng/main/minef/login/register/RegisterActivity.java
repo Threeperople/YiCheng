@@ -78,7 +78,7 @@ public class RegisterActivity extends BaseActivity {
 
     @Override
     public void initView() {
-        LiteOrmUtils.creatLiteOrm(this,"registerPeople");//单例模式创建唯一数据库
+
     }
 
     @Override

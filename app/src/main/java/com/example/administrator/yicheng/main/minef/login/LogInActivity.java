@@ -15,10 +15,16 @@ import android.widget.Toast;
 import com.example.administrator.yicheng.R;
 import com.example.administrator.yicheng.base.BaseActivity;
 import com.example.administrator.yicheng.bean.RegisterPeople;
+import com.example.administrator.yicheng.config.Flags;
 import com.example.administrator.yicheng.main.minef.login.register.RegisterActivity;
 import com.example.administrator.yicheng.utils.LiteOrmUtils;
+import com.example.administrator.yicheng.utils.SharedPreferenceUtils;
+import com.litesuits.orm.db.assit.QueryBuilder;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.ListIterator;
+import java.util.concurrent.Phaser;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -122,26 +128,30 @@ public class LogInActivity extends BaseActivity {
         if (TextUtils.isEmpty(phoneNum)) {
             return;
         } else {
+            Log.i("TAG", "LogInActivity.logInbutton."+"feikong");
             if (phoneNum.matches("[1][358]\\d{9}")) {
+                Log.i("TAG", "LogInActivity.logInbutton."+"feikong2");
                 //查询数据
+
+
                 List<RegisterPeople> peopleList = LiteOrmUtils
                         .getQueryByWhere(RegisterPeople.class, "number", new String[]{phoneNum});
 
-                if (peopleList != null && peopleList.size() != 0) {
+
+                Log.i("TAG", "LogInActivity.logInbutton.peopleList.size()"+peopleList.size());
+
+                if (peopleList!=null&&peopleList.size()!= 0) {
                     String password = peopleList.get(0).getPassword().toString();
                     String number = peopleList.get(0).getNumber();
 
                     Log.i("TAG", "LogInActivity.done." + password);
                     if (secretNum.equals(password)) {
                         Toast.makeText(LogInActivity.this, "登录成功", Toast.LENGTH_SHORT).show();
-
+                        SharedPreferenceUtils.putAndApply(this, Flags.IsLogInFlag,true);
                         Intent intent = new Intent("success");
-//                                    StringBuffer userName = getUserName(number);//自制用户名
                         intent.putExtra("name", number);
 
-
                         sendBroadcast(intent);
-
                         finish();
 
                     } else {
@@ -150,47 +160,8 @@ public class LogInActivity extends BaseActivity {
                 } else {
                     Toast.makeText(LogInActivity.this, "用户名或密码错误", Toast.LENGTH_SHORT).show();
                 }
-
-//                BmobQuery<RegisterPeople> bmobQuery = new BmobQuery<RegisterPeople>();
-//
-//                bmobQuery.addWhereEqualTo("number", phoneNum);
-//                bmobQuery.findObjects(new FindListener<RegisterPeople>() {
-//                    @Override
-//                    public void done(List<RegisterPeople> list, BmobException e) {
-//
-//                        if(e==null){
-//                            Log.i("TAG", "LogInActivity.done.poneNum+secretNum"+phoneNum+secretNum);
-//                            if(list.size()!=0){
-//                                String password = list.get(0).getPassword();
-//                                String number = list.get(0).getNumber();
-//                                Log.i("TAG", "LogInActivity.done."+password);
-//                                if(secretNum.equals(password)){
-//                                    Toast.makeText(LogInActivity.this,"登录成功",Toast.LENGTH_SHORT).show();
-//
-//                                    Intent intent = new Intent("success");
-////                                    StringBuffer userName = getUserName(number);//自制用户名
-//                                    intent.putExtra("name",number);
-//
-//
-//                                    sendBroadcast(intent);
-//
-//                                    finish();
-//
-//                                }else {
-//                                    Toast.makeText(LogInActivity.this,"用户名或密码错误",Toast.LENGTH_SHORT).show();
-//                                }
-//                            }else{
-//                                Toast.makeText(LogInActivity.this,"用户名或密码错误",Toast.LENGTH_SHORT).show();
-//                            }
-//
-//                        }else{
-//                            Toast.makeText(LogInActivity.this,"网络异常，请检查网络!",Toast.LENGTH_SHORT).show();
-//                        }
-//                    }
-//                });
-
             } else {
-                return;
+                Toast.makeText(LogInActivity.this, "用户名或密码错误", Toast.LENGTH_SHORT).show();
             }
         }
     }
