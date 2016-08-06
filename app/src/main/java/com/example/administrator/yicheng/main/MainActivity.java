@@ -11,8 +11,12 @@ import com.example.administrator.yicheng.main.Read.ReadFragment;
 import com.example.administrator.yicheng.main.blogdayf.BlogdayFragment;
 import com.example.administrator.yicheng.main.minef.MineFragment;
 import com.example.administrator.yicheng.main.profilef.ProfileFragment;
+import com.example.administrator.yicheng.utils.LiteOrmUtils;
+
+import java.util.List;
 
 import butterknife.BindView;
+import cn.jpush.android.api.JPushInterface;
 
 public class MainActivity extends BaseActivity implements MainContract.View {
 
@@ -26,10 +30,12 @@ public class MainActivity extends BaseActivity implements MainContract.View {
     @Override
     public int getLayoutId() {
         return R.layout.activity_main;
+
     }
 
     @Override
     public void initView() {
+        LiteOrmUtils.creatLiteOrm(this,"registerPeople");//单例模式创建唯一数据库
         blogdayFragment = (BlogdayFragment) FragmentFactory.creatFragment(FragmentFactory.Blogday_fragment);
         readFragment = (ReadFragment) FragmentFactory.creatFragment(FragmentFactory.Read_fragment);
         profileFragment = (ProfileFragment) FragmentFactory.creatFragment(FragmentFactory.Profile_fragment);
@@ -73,5 +79,15 @@ public class MainActivity extends BaseActivity implements MainContract.View {
     public void initData() {
 
     }
+    @Override
+    protected void onResume() {
+        super.onResume();
+        JPushInterface.onResume(this);
+    }
 
+    @Override
+    protected void onPause() {
+        super.onPause();
+        JPushInterface.onPause(this);
+    }
 }

@@ -1,37 +1,66 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:background="#E9EAEf"
     tools:context=".main.MainActivity">
 
-    <!-- 顶部导航 -->
-    <include layout="@layout/settingapp_toolbar_item"></include>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:background="#E9EAEf"
+            >
+            <!-- 顶部导航 -->
+            <include layout="@layout/settingapp_toolbar_item"></include>
 
-    <!--消息推送-->
-    <include layout="@layout/settingapp_getmsgonoroff_item"/>
+            <!--消息推送-->
+            <include layout="@layout/settingapp_getmsgonoroff_item"/>
 
-    <!-- 清除缓存、检查更新-->
-    <include layout="@layout/settingapp_deletecach_item"/>
-    <include layout="@layout/settingapp_checktorefresh_item"/>
+            <!-- 清除缓存、检查更新-->
+            <include layout="@layout/settingapp_deletecach_item"/>
+            <include layout="@layout/settingapp_checktorefresh_item"/>
 
-    <!-- 给我们打分，关于-->
-    <include layout="@layout/settingapp_scoretoapp_item"/>
-    <include layout="@layout/settingapp_about_item"/>
+            <!-- 给我们打分，关于-->
+            <include layout="@layout/settingapp_scoretoapp_item"/>
+            <include layout="@layout/settingapp_about_item"/>
 
-    <!-- 退出登录-->
-    <TextView
-        android:id="@+id/setting_exitApp"
-        android:layout_width="match_parent"
-        android:layout_height="40dp"
-        android:orientation="horizontal"
-        android:layout_marginTop="5dp"
-        android:gravity="center"
-        android:background="#fff"
-        android:text="退出登录"
-        android:textColor="#f00"
-        android:textSize="20sp"
-        ></TextView>
+            <!-- 退出登录-->
+            <TextView
+                android:id="@+id/setting_exitApp"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:orientation="horizontal"
+                android:layout_marginTop="5dp"
+                android:gravity="center"
+                android:background="#fff"
+                android:text="退出登录"
+                android:textColor="#f00"
+                android:textSize="20sp"
+                android:alpha="0.5"
+                android:enabled="false"
+                ></TextView>
+        </LinearLayout>
+            <com.example.administrator.yicheng.view.DashSpinner
+                android:id="@+id/settingApp_progress_spinner"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:layout_gravity="center"
+                android:alpha="0.5"
+                app:arcColor="#03A9F4"
+                app:arcStartPosition="270.0"
+                app:arcSweepSpeed="20.0"
+                app:arcWidth="5dp"
+                app:arcLength="45.0"
+                android:visibility="gone"
+                app:innerCircleSuccessColor="#388E3C"
+                app:innerCircleFailureColor="#F44336"
+                app:innerCircleUnknownColor="#FFA000"
+                app:outerRingColor="#607D8B"
+                app:outerRingWidth="1dp"
+                app:maxProgressTextSize="40sp"
+                app:textColorFrom="#FF0000"
+                app:textColorTo="#FFFFFF"
+                app:showProgressText="true" />
 
-</LinearLayout>
+</FrameLayout>

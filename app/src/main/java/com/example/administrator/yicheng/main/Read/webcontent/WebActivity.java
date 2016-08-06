@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.FloatingActionButton;
+import android.support.v4.media.MediaBrowserCompat;
 import android.view.MotionEvent;
 import android.view.View;
 import android.webkit.WebSettings;
@@ -16,9 +17,12 @@ import com.example.administrator.yicheng.R;
 import com.example.administrator.yicheng.base.BaseActivity;
 import com.example.administrator.yicheng.bean.BlogdaycontentItem;
 import com.example.administrator.yicheng.bean.CityContent;
+import com.example.administrator.yicheng.bean.Collection;
 import com.example.administrator.yicheng.bean.Content;
+import com.example.administrator.yicheng.config.Flags;
 import com.example.administrator.yicheng.main.MainActivity;
 import com.example.administrator.yicheng.main.minef.login.LogInActivity;
+import com.example.administrator.yicheng.utils.LiteOrmUtils;
 import com.example.administrator.yicheng.utils.SharedPreferenceUtils;
 import com.umeng.socialize.ShareAction;
 import com.umeng.socialize.UMShareListener;
@@ -52,6 +56,7 @@ public class WebActivity extends BaseActivity {
     private static boolean b;
     private Content content;
     private BlogdaycontentItem blogdaycontentItem;
+    private CityContent cityContent;
 
     @Override
     public int getLayoutId() {
@@ -63,29 +68,6 @@ public class WebActivity extends BaseActivity {
 
     }
 
-//    @Override
-//    public boolean onTouchEvent(MotionEvent event) {
-//           float rawY = event.getRawY();
-//        Log.i("TAG", "onTouchEvent: "+event.getAction());
-//        switch (event.getAction()){
-//            case MotionEvent.ACTION_DOWN:
-//                y1=rawY;
-//                Log.i("TAG", "onTouchEvent: "+y1+"heh");
-//                break;
-//            case MotionEvent.ACTION_UP:
-//                y2 = event.getRawY();
-//                if(y2-y1>=10){
-//                    Log.i("TAG", "onTouchEvent: 下"+y1+" "+y2);
-//                    appbar.setVisibility(View.GONE);
-//                }if(y1-y2>=10){
-//                Log.i("TAG", "onTouchEvent: 上"+y1+" "+y2);
-//                appbar.setVisibility(View.VISIBLE);
-//            }
-//                break;
-//        }
-//
-//        return true;
-//    }
 
     @Override
     public void initData() {
@@ -94,8 +76,8 @@ public class WebActivity extends BaseActivity {
         if(content==null){
             blogdaycontentItem = (BlogdaycontentItem) intent.getSerializableExtra("url");
             if(blogdaycontentItem==null){
-                CityContent cityContent= (CityContent) intent.getSerializableExtra("cityContenturl");
-                url=cityContent.getSummary();
+                cityContent = (CityContent) intent.getSerializableExtra("cityContenturl");
+                url= cityContent.getSummary();
             }else {
                 url = blogdaycontentItem.getUrl();
             }
@@ -148,8 +130,14 @@ public class WebActivity extends BaseActivity {
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.iv_collection:
-
-                startActivity(new Intent(this, LogInActivity.class));
+                Boolean f = (Boolean) SharedPreferenceUtils.get(this, Flags.IsLogInFlag, false);
+                if(f) {
+                    LiteOrmUtils.creatLiteOrm(this,"collection");
+                    Collection c=new Collection(cityContent,blogdaycontentItem,content);
+                    LiteOrmUtils.save(c);
+                }else {
+                    startActivity(new Intent(this, LogInActivity.class));
+                }
                 break;
             case R.id.iv_good:
                 if (b) {
