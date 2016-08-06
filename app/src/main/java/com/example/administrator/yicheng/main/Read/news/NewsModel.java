@@ -1,6 +1,8 @@
 package com.example.administrator.yicheng.main.Read.news;
 
+import com.example.administrator.yicheng.bean.CityContentBean;
 import com.example.administrator.yicheng.bean.ContentBean;
+import com.example.administrator.yicheng.retrofit.CityHelper;
 import com.example.administrator.yicheng.retrofit.HttpHelper;
 
 import java.util.HashMap;
@@ -15,5 +17,10 @@ public class NewsModel implements NewsContract.Model{
     @Override
     public void getContentList(int type, HashMap<String, String> params, Callback<ContentBean> callback) {
         HttpHelper.newInstance().getService().getContentList(params).enqueue(callback);
+    }
+
+    @Override
+    public void getCityContentList(int type, HashMap<String, String> params, Callback<CityContentBean> callback) {
+        CityHelper.newInstance().getService().getCityContentList(params).enqueue(callback);
     }
 }

@@ -13,6 +13,7 @@ import android.widget.TextView;
 import com.example.administrator.yicheng.R;
 import com.example.administrator.yicheng.base.BaseFragment;
 import com.example.administrator.yicheng.bean.RegisterPeople;
+import com.example.administrator.yicheng.config.Flags;
 import com.example.administrator.yicheng.main.minef.login.LogInActivity;
 import com.example.administrator.yicheng.main.minef.login.setting.SettingActivity;
 import com.example.administrator.yicheng.main.minef.msg.MsgActivity;
@@ -62,6 +63,7 @@ public class MineFragment extends BaseFragment implements MineContract.View,View
         receiver = new MyReceiver();
         IntentFilter filter = new IntentFilter();
         filter.addAction("success");
+        filter.addAction("exitLogIn");
         getActivity().registerReceiver(receiver,filter);
 
     }
@@ -125,21 +127,42 @@ public class MineFragment extends BaseFragment implements MineContract.View,View
     class MyReceiver extends BroadcastReceiver {
         @Override
         public void onReceive(Context context, Intent intent) {
-            String action = intent.getAction();
-            String number = intent.getStringExtra("name");
-
-            List<RegisterPeople> peoples = LiteOrmUtils.getQueryByWhere(RegisterPeople.class, "number", new String[]{number});
-            String userName = peoples.get(0).getUserName();
-            String sex = peoples.get(0).getSex();
-
-
-            if("success".equals(action)){
-                fourFragmentTopName.setText(userName);
-                fourFragmentTopName.setTextSize(16);
-
-                fourFragmentEtSex.setText(sex);
-                fourFragmentEtSex.setVisibility(View.VISIBLE);
+            if("success".equals(intent.getAction())){
+                getIntentForLogIn(intent);//登录成功后，获得登录信息
+            }else {
+                getIntentToExit(intent);//点击MineFragment中的退出登录按钮，
             }
+
+
+        }
+    }
+
+    private void getIntentToExit(Intent intent) {
+        String action = intent.getAction();
+        String exit = intent.getStringExtra("exit");
+        if("exitLogIn".equals(action)){
+            fourFragmentTopName.setText("未登录");
+            fourFragmentTopName.setTextSize(16);
+            fourFragmentEtSex.setVisibility(View.INVISIBLE);
+            Boolean o = (Boolean) SharedPreferenceUtils.get(getContext(), Flags.IsLogInFlag, false);
+            if(o==true){
+                SharedPreferenceUtils.remove(getContext(),Flags.IsLogInFlag);
+            }
+        }
+    }
+
+    private void getIntentForLogIn(Intent intent) {
+        String action = intent.getAction();
+        String number = intent.getStringExtra("name");
+        List<RegisterPeople> peoples = LiteOrmUtils.getQueryByWhere(RegisterPeople.class, "number", new String[]{number});
+        String userName = peoples.get(0).getUserName();
+        String sex = peoples.get(0).getSex();
+        if("success".equals(action)){
+            fourFragmentTopName.setText(userName);
+            fourFragmentTopName.setTextSize(16);
+
+            fourFragmentEtSex.setText(sex);
+            fourFragmentEtSex.setVisibility(View.VISIBLE);
         }
     }
 

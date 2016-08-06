@@ -1,11 +1,11 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/settingapp_scoreToApp"
+    android:id="@+id/settingapp_about"
     android:layout_width="match_parent"
     android:layout_height="40dp"
     android:orientation="horizontal"
     android:layout_marginTop="0.5dp"
     android:gravity="center"
-    android:background="#ffe"
+    android:background="#fff"
     >
     <ImageView
         android:layout_width="20dp"

@@ -60,12 +60,15 @@ public class RegisterActivity extends BaseActivity {
             super.handleMessage(msg);
             switch (msg.what) {
                 case 1:
-                    int i = (int) msg.obj;
-                    if(i==1){
-                        RegisterButtonGetVerifycode.setText("重新获取");
-                    }else{
-                        RegisterButtonGetVerifycode.setText(String.valueOf(i)+"S");
+                    String  i = (String) msg.obj;
+                    if(!TextUtils.isEmpty(i)){
+                        if(i.equals("1")){
+                            RegisterButtonGetVerifycode.setText("重新获取");
+                        }else {
+                            RegisterButtonGetVerifycode.setText(String.valueOf(i)+"S");
+                        }
                     }
+
                     break;
             }
         }
@@ -78,7 +81,7 @@ public class RegisterActivity extends BaseActivity {
 
     @Override
     public void initView() {
-        LiteOrmUtils.creatLiteOrm(this,"registerPeople");//单例模式创建唯一数据库
+
     }
 
     @Override

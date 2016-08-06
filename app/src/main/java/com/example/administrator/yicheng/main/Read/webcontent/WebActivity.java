@@ -15,6 +15,7 @@ import android.widget.Toast;
 import com.example.administrator.yicheng.R;
 import com.example.administrator.yicheng.base.BaseActivity;
 import com.example.administrator.yicheng.bean.BlogdaycontentItem;
+import com.example.administrator.yicheng.bean.CityContent;
 import com.example.administrator.yicheng.bean.Content;
 import com.example.administrator.yicheng.main.MainActivity;
 import com.example.administrator.yicheng.main.minef.login.LogInActivity;
@@ -92,7 +93,12 @@ public class WebActivity extends BaseActivity {
         content = (Content) intent.getSerializableExtra("contenturl");
         if(content==null){
             blogdaycontentItem = (BlogdaycontentItem) intent.getSerializableExtra("url");
-            url=blogdaycontentItem.getUrl();
+            if(blogdaycontentItem==null){
+                CityContent cityContent= (CityContent) intent.getSerializableExtra("cityContenturl");
+                url=cityContent.getSummary();
+            }else {
+                url = blogdaycontentItem.getUrl();
+            }
         }else {
             url = content.getSummary();
         }
@@ -142,6 +148,7 @@ public class WebActivity extends BaseActivity {
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.iv_collection:
+
                 startActivity(new Intent(this, LogInActivity.class));
                 break;
             case R.id.iv_good:

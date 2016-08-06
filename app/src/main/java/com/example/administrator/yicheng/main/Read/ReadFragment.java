@@ -1,6 +1,11 @@
 package com.example.administrator.yicheng.main.Read;
 
 
+import android.content.BroadcastReceiver;
+import android.content.Context;
+import android.content.Intent;
+import android.content.IntentFilter;
+import android.database.CursorJoiner;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -9,6 +14,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -18,16 +24,26 @@ import com.example.administrator.yicheng.R;
 import com.example.administrator.yicheng.adapter.MyListAdapter;
 import com.example.administrator.yicheng.adapter.MyTitleAdapter;
 import com.example.administrator.yicheng.base.BaseFragment;
+import com.example.administrator.yicheng.bean.City;
+import com.example.administrator.yicheng.bean.CityTitle;
+import com.example.administrator.yicheng.bean.CityTitleBean;
 import com.example.administrator.yicheng.bean.Content;
 import com.example.administrator.yicheng.bean.Title;
 import com.example.administrator.yicheng.config.Types;
+import com.example.administrator.yicheng.config.Urls;
+import com.example.administrator.yicheng.main.Read.location.LocationActivity;
 import com.example.administrator.yicheng.utils.BdlocationUtils;
+import com.google.gson.Gson;
 
+
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.zip.Inflater;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 public class ReadFragment extends BaseFragment implements ReadContract.View, CanRefreshLayout.OnRefreshListener, CanRefreshLayout.OnLoadMoreListener {
 
@@ -40,12 +56,17 @@ public class ReadFragment extends BaseFragment implements ReadContract.View, Can
     CanRefreshLayout canRefresh;
     @BindView(R.id.city)
     TextView tv_city;
+    @BindView(R.id.iv_location)
+    ImageView ivLocation;
+    @BindView(R.id.add)
+    ImageView add;
     private MyTitleAdapter titleAdapter;
     private List<Title> titles = new ArrayList<>();
     private ReadPresenter presenter;
     private List<Content> contentList = new ArrayList<>();
     private MyListAdapter listAdapter;
     private String hot;
+    private String cityName;
     private static int num = 0;
     private Handler handler = new Handler() {
         @Override
@@ -94,6 +115,8 @@ public class ReadFragment extends BaseFragment implements ReadContract.View, Can
             }
         }
     };
+    private MyReceiver receiver;
+    private String cityCode=null;
 
     @Override
     public int getLayoutId() {
@@ -102,34 +125,44 @@ public class ReadFragment extends BaseFragment implements ReadContract.View, Can
 
     @Override
     public void initView() {
+        receiver = new MyReceiver();
+        IntentFilter filter = new IntentFilter();
+        filter.addAction("city");
+        getActivity().registerReceiver(receiver, filter);
         ReadModel model = new ReadModel();
         presenter = new ReadPresenter(model, this);
         canRefresh.setOnLoadMoreListener(this);
         canRefresh.setOnRefreshListener(this);
+        canRefresh.setStyle(1, 0);
         BdlocationUtils.getLocation(getActivity());
         BdlocationUtils.setMyLocationListener(new BdlocationUtils.MyLocationListener() {
 
-            @Override
-            public void myLocatin(double mylongitude, double mylatitude, String city, String street) {
-                   tv_city.setText(city);
-            }
-        });
+                @Override
+                public void myLocatin(double mylongitude, double mylatitude, String city, String street) {
+                    cityName = city;
+                    tv_city.setText(city);
+                }
+            });
+
     }
 
     @Override
     public void initData() {
+        Gson gson=new Gson();
+        CityTitleBean cityTitleBean = gson.fromJson(Urls.CITYJSON, CityTitleBean.class);
+        List<CityTitle> titles = cityTitleBean.getData();
         LinearLayoutManager manager = new LinearLayoutManager(getActivity());
         manager.setOrientation(LinearLayoutManager.HORIZONTAL);
         rv.setLayoutManager(manager);
-        if (titles.size() == 0) {
+        if (this.titles.size() == 0) {
             presenter.getList(Types.TITLE_TYPE, num);
         }
         if (contentList.size() == 0) {
             presenter.getList(Types.HOT_TYPE, num);
         }
-        listAdapter = new MyListAdapter(contentList, getActivity());
+        listAdapter = new MyListAdapter(contentList,null,getActivity());
         canContentView.setAdapter(listAdapter);
-        titleAdapter = new MyTitleAdapter(titles, getActivity());
+        titleAdapter = new MyTitleAdapter(this.titles,titles,tv_city,getActivity());
         rv.setAdapter(titleAdapter);
     }
 
@@ -160,11 +193,38 @@ public class ReadFragment extends BaseFragment implements ReadContract.View, Can
         msg.sendToTarget();
     }
 
+    @OnClick({R.id.iv_location, R.id.add,R.id.city})
+    public void onClick(View view) {
+        switch (view.getId()) {
+            case R.id.iv_location:
+            case R.id.city:
+                Intent intent=new Intent(getActivity(), LocationActivity.class);
+                intent.putExtra("city",cityName);
+                startActivityForResult(intent,1);
+                break;
+            case R.id.add:
+
+                break;
+        }
+    }
+
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        // TODO: inflate a fragment view
-        View rootView = super.onCreateView(inflater, container, savedInstanceState);
-        ButterKnife.bind(this, rootView);
-        return rootView;
+    public void onDestroy() {
+        super.onDestroy();
+        getActivity().unregisterReceiver(receiver);
+
+    }
+
+    class MyReceiver extends BroadcastReceiver {
+
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            if("city".equals(intent.getAction())){
+               City city = (City) intent.getSerializableExtra("city");
+                cityName = city.getCityname();
+                tv_city.setTag(city.getCitycode());
+                tv_city.setText(cityName);
+            }
+        }
     }
 }
