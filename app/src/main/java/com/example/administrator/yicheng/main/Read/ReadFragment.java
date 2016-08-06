@@ -35,15 +35,14 @@ import com.example.administrator.yicheng.main.Read.location.LocationActivity;
 import com.example.administrator.yicheng.utils.BdlocationUtils;
 import com.google.gson.Gson;
 
-import org.greenrobot.eventbus.EventBus;
 
-import java.io.Serializable;
+
 import java.util.ArrayList;
 import java.util.List;
-import java.util.zip.Inflater;
+
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
+
 import butterknife.OnClick;
 
 public class ReadFragment extends BaseFragment implements ReadContract.View, CanRefreshLayout.OnRefreshListener, CanRefreshLayout.OnLoadMoreListener {

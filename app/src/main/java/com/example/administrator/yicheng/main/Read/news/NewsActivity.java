@@ -5,17 +5,14 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import android.util.Log;
-import android.view.MotionEvent;
-import android.view.View;
-import android.widget.ListView;
+
 import android.widget.Toast;
 
 import com.canyinghao.canrefresh.CanRefreshLayout;
 import com.example.administrator.yicheng.R;
 import com.example.administrator.yicheng.adapter.MyListAdapter;
 import com.example.administrator.yicheng.base.BaseActivity;
-import com.example.administrator.yicheng.bean.City;
+
 import com.example.administrator.yicheng.bean.CityContent;
 import com.example.administrator.yicheng.bean.CityTitle;
 import com.example.administrator.yicheng.bean.Content;
@@ -23,9 +20,7 @@ import com.example.administrator.yicheng.bean.Title;
 import com.example.administrator.yicheng.config.Types;
 import com.example.administrator.yicheng.view.PullToZoomListView;
 
-import org.greenrobot.eventbus.EventBus;
-import org.greenrobot.eventbus.Subscribe;
-import org.greenrobot.eventbus.ThreadMode;
+
 
 import java.util.ArrayList;
 import java.util.List;
