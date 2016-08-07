@@ -2,6 +2,7 @@ package com.example.administrator.yicheng;
 
 import android.app.Application;
 
+import com.baidu.mapapi.SDKInitializer;
 import com.facebook.drawee.backends.pipeline.Fresco;
 import com.umeng.socialize.PlatformConfig;
 

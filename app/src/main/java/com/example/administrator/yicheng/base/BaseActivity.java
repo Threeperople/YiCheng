@@ -17,12 +17,6 @@ import butterknife.Unbinder;
 public abstract class BaseActivity extends AppCompatActivity implements IBaseView {
 
     private Unbinder bind;
-
-    float xDown=0;
-    float yDown=0;
-    float xUp=0;
-    float yUp=0;
-
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -40,6 +34,14 @@ public abstract class BaseActivity extends AppCompatActivity implements IBaseVie
     public abstract void initView();
 
     public abstract void initData();
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        finish();
+        overridePendingTransition(R.anim.in_from_left,R.anim.out_to_right);
+    }
+
 
     @Override
     protected void onDestroy() {

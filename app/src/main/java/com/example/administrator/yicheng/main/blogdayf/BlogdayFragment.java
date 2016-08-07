@@ -33,7 +33,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 
-public class BlogdayFragment extends BaseFragment implements BlogdayContract.View, CanRefreshLayout.OnLoadMoreListener ,CanRefreshLayout.OnRefreshListener{
+public class BlogdayFragment extends BaseFragment implements BlogdayContract.View, CanRefreshLayout.OnLoadMoreListener {
 
 
     @BindView(R.id.can_refresh_footer)
@@ -52,7 +52,7 @@ public class BlogdayFragment extends BaseFragment implements BlogdayContract.Vie
     //    private BlogdayaAdapterofmy adapter;
     public int freshFlag = 1;
     public int changeYearFlag = 0;
-    public int flag=0;
+    public int flag = 0;
 
     private Handler mhandle = new Handler();
 
@@ -66,6 +66,7 @@ public class BlogdayFragment extends BaseFragment implements BlogdayContract.Vie
 
         list = new ArrayList<>();
         canRefresh.setOnLoadMoreListener(this);
+  //      canRefresh.setRefreshEnabled(false);
         adapter = new BlogdayAdapter(R.layout.items_blogday, list);
 //        adapter = new BlogdayaAdapterofmy(getContext(), list);
         GridLayoutManager gridLayoutManager = new GridLayoutManager(getContext(), 2);
@@ -85,7 +86,7 @@ public class BlogdayFragment extends BaseFragment implements BlogdayContract.Vie
 
                 BlogdaycontentItem item = list.get(i);
                 Intent intent = new Intent(getContext(), WebActivity.class);
-                intent.putExtra("url",item);
+                intent.putExtra("url", item);
                 startActivity(intent);
             }
         });
@@ -109,8 +110,8 @@ public class BlogdayFragment extends BaseFragment implements BlogdayContract.Vie
         mhandle.post(new Runnable() {
             @Override
             public void run() {
-                String month = blogdaycontentItems.get(0).getDay().substring(4, 6);
-                blogdayItemMonth.setText("往期*" + month + "月");
+//                String month = blogdaycontentItems.get(0).getDay().substring(4, 6);
+//                blogdayItemMonth.setText("往期*" + month + "月");
 
                 list.addAll(blogdaycontentItems);
                 adapter.notifyDataSetChanged();
@@ -133,16 +134,6 @@ public class BlogdayFragment extends BaseFragment implements BlogdayContract.Vie
     }
 
 
-
-
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        // TODO: inflate a fragment view
-        View rootView = super.onCreateView(inflater, container, savedInstanceState);
-        ButterKnife.bind(this, rootView);
-        return rootView;
-    }
-
     public String getDateString() {
         String nowtime = DateUtils.getNowtime();
         String[] split = nowtime.split("/");
@@ -156,22 +147,22 @@ public class BlogdayFragment extends BaseFragment implements BlogdayContract.Vie
         for (int i = 29; i > 0; i--) {
 
             if (i > 10) {
-                item = getYear(split[0],split[1]) + getMonth(split[1], freshFlag) + i + ",";
+                item = getYear(split[0], split[1]) + getMonth(split[1], freshFlag) + i + ",";
             } else {
-                item = getYear(split[0],split[1]) + getMonth(split[1], freshFlag) + "0" + i + ",";
+                item = getYear(split[0], split[1]) + getMonth(split[1], freshFlag) + "0" + i + ",";
                 if (i == 1) {
-                    item = getYear(split[0],split[1]) + getMonth(split[1], freshFlag) + "0" + i;
+                    item = getYear(split[0], split[1]) + getMonth(split[1], freshFlag) + "0" + i;
                 }
             }
             builder.append(item);
         }
-        flag=0;
+        flag = 0;
         return builder.toString();
     }
 
-    private String getYear(String year,String month) {//通过当前年份和刷新的次数的大小
-        if(freshFlag==Integer.valueOf(month)){
-            if(flag==0){
+    private String getYear(String year, String month) {//通过当前年份和刷新的次数的大小
+        if (freshFlag == Integer.valueOf(month)) {
+            if (flag == 0) {
                 changeYearFlag++;
                 flag++;
             }
@@ -190,8 +181,8 @@ public class BlogdayFragment extends BaseFragment implements BlogdayContract.Vie
             }
 
         } else if (Integer.valueOf(month) < changeMonth) {
-            Toast.makeText(getActivity(),"已到最后一页",Toast.LENGTH_SHORT).show();
-                return null;
+            Toast.makeText(getActivity(), "已到最后一页", Toast.LENGTH_SHORT).show();
+            return null;
 
         } else if (Integer.valueOf(month) == changeMonth) {
             return "12";
@@ -199,8 +190,4 @@ public class BlogdayFragment extends BaseFragment implements BlogdayContract.Vie
         return null;
     }
 
-    @Override
-    public void onRefresh() {
-        canRefresh.refreshComplete();
-    }
 }
