@@ -57,10 +57,10 @@
         android:theme="@style/AppTheme">
         <meta-data
             android:name="com.baidu.lbsapi.API_KEY"
-            android:value="XzbFVk1t3EPhGqLtQBwOgxQasmQmtsHP" />
+            android:value="Kn1GVLUBCSIgACbjZSWGGspFTZacDwpe" />
         <meta-data
             android:name="UMENG_APPKEY"
-            android:value="57a32b4067e58e677f003c25"></meta-data>
+            android:value="57a32b4067e58e677f003c25"/>
 
         <activity android:name=".main.MainActivity"
             android:launchMode="singleTask">
@@ -84,7 +84,6 @@
             android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="com.sina.weibo.sdk.action.ACTION_SDK_REQ_ACTIVITY" />
-
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
@@ -92,7 +91,7 @@
             android:name="com.sina.weibo.sdk.component.WeiboSdkBrowser"
             android:configChanges="keyboardHidden|orientation"
             android:exported="false"
-            android:windowSoftInputMode="adjustResize"></activity>
+            android:windowSoftInputMode="adjustResize"/>
         <activity
             android:name="com.renn.rennsdk.oauth.OAuthActivity"
             android:configChanges="orientation|navigation|keyboardHidden" />
@@ -102,10 +101,8 @@
             android:noHistory="true">
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
-
                 <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="android.intent.category.BROWSABLE" />
-
                 <data android:scheme="tencent100424468" />
             </intent-filter>
         </activity>
@@ -113,12 +110,10 @@
             android:name="com.tencent.connect.common.AssistActivity"
             android:screenOrientation="portrait"
             android:theme="@android:style/Theme.Translucent.NoTitleBar" />
-
         <service
             android:name="com.baidu.location.f"
             android:enabled="true"
             android:process=":remote" />
-
         <!-- Required SDK核心功能 -->
         <activity
             android:name="cn.jpush.android.ui.PushActivity"
@@ -136,7 +131,7 @@
         <service
             android:name="cn.jpush.android.service.DownloadService"
             android:enabled="true"
-            android:exported="false"></service>
+            android:exported="false"/>
 
         <!-- Required SDK 核心功能 -->
         <!-- 可配置android:process参数将PushService放在其他进程中 -->
@@ -188,7 +183,7 @@
             android:name="JPUSH_APPKEY"
             android:value="21c6b12d27cdd7c225be619d" />
         <!-- </>值来自开发者平台取得的AppKey -->
-        <activity android:name=".main.minef.settingAPP.aboutus.AboutUsActivity"></activity>
+        <activity android:name=".main.minef.settingAPP.aboutus.AboutUsActivity"/>
         <activity android:name=".main.Read.location.LocationActivity"/>
     </application>
 

@@ -1,6 +1,5 @@
 package com.example.administrator.yicheng.bean;
 
-import com.facebook.drawee.components.DeferredReleaser;
 import com.google.gson.annotations.SerializedName;
 
 import java.io.Serializable;

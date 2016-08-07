@@ -18,6 +18,10 @@ import com.example.administrator.yicheng.bean.Content;
 import com.example.administrator.yicheng.main.Read.webcontent.WebActivity;
 
 
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -35,7 +39,9 @@ public class StoreActicity extends BaseActivity implements StoreContract.View{
     @BindView(R.id.store_listView)
     ListView storeListView;
     private StorePresenter presenter;
-    private SparseArray<Object> array;
+    private List<String> list;
+    private ArrayAdapter<String> adapter;
+
 
     @Override
     public int getLayoutId() {
@@ -44,9 +50,11 @@ public class StoreActicity extends BaseActivity implements StoreContract.View{
 
     @Override
     public void initView() {
+        EventBus.getDefault().register(this);
         storeListView.setEmptyView(findViewById(R.id.store_emptyView));
         StoreModel model=new StoreModel();
         presenter = new StorePresenter(model,this);
+        presenter.getCollection();
     }
 
     @Override
@@ -55,58 +63,39 @@ public class StoreActicity extends BaseActivity implements StoreContract.View{
     }
 
 
-
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        EventBus.getDefault().unregister(this);
+    }
 
     @OnClick(R.id.store_toolBarIcon)
     public void onClick() {
         finish();
     }
-
-    @Override
-    public void getCollection(List<Collection> collectionList) {
-        List<String> titles=new ArrayList<>();
-        array = new SparseArray();
-        for(int i=0;i<collectionList.size();i++){
-            BlogdaycontentItem blogdaycontentItem = collectionList.get(i).getBlogdaycontentItem();
-            if(blogdaycontentItem!=null){
-                titles.add(blogdaycontentItem.getTitle());
-                array.put(i,blogdaycontentItem);
-            }else{
-                CityContent cityContent = collectionList.get(i).getCityContent();
-                if(cityContent!=null){
-                    titles.add(cityContent.getTitle());
-                    array.put(i,cityContent);
-                }else{
-                    Content content = collectionList.get(i).getContent();
-                    if(content!=null){
-                        titles.add(content.getTitle());
-                        array.put(i,content);
-                    }
-                }
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void helloEventBus(String title) {
+        for(int i=0;i<list.size();i++){
+            if(list.get(i).equals(title)){
+                list.remove(i);
+                adapter.notifyDataSetChanged();
             }
         }
-        ArrayAdapter<String> adapter=new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1,titles);
+    }
+    @Override
+    public void getCollection(final List<Collection> collectionList) {
+        list = new ArrayList<>();
+       for(int i=0;i<collectionList.size();i++){
+           list.add(collectionList.get(i).getTitle());
+       }
+        adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, list);
         storeListView.setAdapter(adapter);
         storeListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Intent intent=new Intent(StoreActicity.this, WebActivity.class);
-                Object o = array.get(position);
-                Content content = (Content) o;
-                if(content!=null){
-                    intent.putExtra("contenturl",content);
-                }else{
-                    CityContent cityContent=(CityContent)o;
-                    if(cityContent!=null){
-                        intent.putExtra("cityContenturl",cityContent);
-                    }else{
-                        BlogdaycontentItem blogdaycontentItem= (BlogdaycontentItem) o;
-                        if(blogdaycontentItem!=null){
-                            intent.putExtra("url",blogdaycontentItem);
-                        }
-                    }
-                }
-               startActivity(intent);
+                Intent intent=new Intent(StoreActicity.this,WebActivity.class);
+                intent.putExtra("collection",collectionList.get(position));
+                startActivity(intent);
             }
         });
     }

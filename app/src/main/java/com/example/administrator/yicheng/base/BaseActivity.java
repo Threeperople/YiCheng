@@ -42,31 +42,6 @@ public abstract class BaseActivity extends AppCompatActivity implements IBaseVie
     public abstract void initData();
 
     @Override
-    public void onBackPressed() {
-        super.onBackPressed();
-        finish();
-        overridePendingTransition(R.anim.in_from_left,R.anim.out_to_right);
-    }
-
-    @Override
-    public boolean onTouchEvent(MotionEvent event) {
-        if(event.getAction()==MotionEvent.ACTION_DOWN){
-            xDown = event.getX();
-            yDown = event.getY();
-        }
-        if(event.getAction()==MotionEvent.ACTION_UP){
-            xUp = event.getX();
-            yUp = event.getY();
-            if(xUp-xDown>50){
-                finish();
-                overridePendingTransition(R.anim.in_from_left,R.anim.out_to_right);
-            }
-
-        }
-
-        return super.onTouchEvent(event);
-    }
-    @Override
     protected void onDestroy() {
         super.onDestroy();
         bind.unbind();

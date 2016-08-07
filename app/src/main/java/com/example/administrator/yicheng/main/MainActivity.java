@@ -7,11 +7,13 @@ import android.widget.RadioGroup;
 import com.example.administrator.yicheng.FragmentFactory;
 import com.example.administrator.yicheng.R;
 import com.example.administrator.yicheng.base.BaseActivity;
+import com.example.administrator.yicheng.config.Flags;
 import com.example.administrator.yicheng.main.Read.ReadFragment;
 import com.example.administrator.yicheng.main.blogdayf.BlogdayFragment;
 import com.example.administrator.yicheng.main.minef.MineFragment;
 import com.example.administrator.yicheng.main.profilef.ProfileFragment;
 import com.example.administrator.yicheng.utils.LiteOrmUtils;
+import com.example.administrator.yicheng.utils.SharedPreferenceUtils;
 
 import java.util.List;
 
@@ -89,5 +91,11 @@ public class MainActivity extends BaseActivity implements MainContract.View {
     protected void onPause() {
         super.onPause();
         JPushInterface.onPause(this);
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        SharedPreferenceUtils.remove(this, Flags.IsLogInFlag);
     }
 }
