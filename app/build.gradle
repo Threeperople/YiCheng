@@ -42,6 +42,7 @@ dependencies {
     compile files('libs/lite-orm-1.9.2.jar')
     compile 'com.leaking.slideswitch:slideswitch:1.0.0'
     compile'org.greenrobot:eventbus:3.0.0'
+    compile 'de.hdodenhof:circleimageview:2.1.0'
     compile files('libs/jpush-android-2.1.7.jar')
 }
 

@@ -1,8 +1,9 @@
 package com.example.administrator.yicheng.main.minef.store;
 
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
-import android.util.SparseArray;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -11,21 +12,17 @@ import android.widget.ListView;
 
 import com.example.administrator.yicheng.R;
 import com.example.administrator.yicheng.base.BaseActivity;
-import com.example.administrator.yicheng.bean.BlogdaycontentItem;
-import com.example.administrator.yicheng.bean.CityContent;
 import com.example.administrator.yicheng.bean.Collection;
-import com.example.administrator.yicheng.bean.Content;
+
 import com.example.administrator.yicheng.main.Read.webcontent.WebActivity;
+import com.example.administrator.yicheng.utils.LiteOrmUtils;
+import com.example.administrator.yicheng.utils.SharedPreferenceUtils;
 
-
-import org.greenrobot.eventbus.EventBus;
-import org.greenrobot.eventbus.Subscribe;
-import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import b.Android;
+
 import butterknife.BindView;
 import butterknife.OnClick;
 
@@ -50,8 +47,7 @@ public class StoreActicity extends BaseActivity implements StoreContract.View{
 
     @Override
     public void initView() {
-        EventBus.getDefault().register(this);
-        storeListView.setEmptyView(findViewById(R.id.store_emptyView));
+        storeListView.setEmptyView(findViewById(R.id.empty_view));
         StoreModel model=new StoreModel();
         presenter = new StorePresenter(model,this);
         presenter.getCollection();
@@ -63,25 +59,17 @@ public class StoreActicity extends BaseActivity implements StoreContract.View{
     }
 
 
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        EventBus.getDefault().unregister(this);
-    }
-
     @OnClick(R.id.store_toolBarIcon)
     public void onClick() {
         finish();
     }
-    @Subscribe(threadMode = ThreadMode.MAIN)
-    public void helloEventBus(String title) {
-        for(int i=0;i<list.size();i++){
-            if(list.get(i).equals(title)){
-                list.remove(i);
-                adapter.notifyDataSetChanged();
-            }
-        }
+
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+        presenter.getCollection();
     }
+
     @Override
     public void getCollection(final List<Collection> collectionList) {
         list = new ArrayList<>();
@@ -96,6 +84,22 @@ public class StoreActicity extends BaseActivity implements StoreContract.View{
                 Intent intent=new Intent(StoreActicity.this,WebActivity.class);
                 intent.putExtra("collection",collectionList.get(position));
                 startActivity(intent);
+            }
+        });
+        storeListView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClick(AdapterView<?> parent, View view, final int position, long id) {
+                new AlertDialog.Builder(StoreActicity.this).setTitle("删除操作").
+                        setMessage("是否狠心删除？").setPositiveButton("狠心删除", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        String url = collectionList.get(position).getUrl();
+                        list.remove(position);
+                        adapter.notifyDataSetChanged();
+                        LiteOrmUtils.deleteWhere(Collection.class,"url",new String[]{url});
+                    }
+                }).setNegativeButton("取消删除",null).show();
+                return true;
             }
         });
     }

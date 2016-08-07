@@ -1,10 +1,9 @@
 package com.example.administrator.yicheng.main.Read.webcontent;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
-import android.os.Bundle;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.FloatingActionButton;
-import android.support.v4.media.MediaBrowserCompat;
 import android.text.TextUtils;
 import android.view.MotionEvent;
 import android.view.View;
@@ -21,7 +20,7 @@ import com.example.administrator.yicheng.bean.CityContent;
 import com.example.administrator.yicheng.bean.Collection;
 import com.example.administrator.yicheng.bean.Content;
 import com.example.administrator.yicheng.config.Flags;
-import com.example.administrator.yicheng.main.MainActivity;
+import com.example.administrator.yicheng.main.Read.webcontent.comment.CommentActivity;
 import com.example.administrator.yicheng.main.minef.login.LogInActivity;
 import com.example.administrator.yicheng.utils.LiteOrmUtils;
 import com.example.administrator.yicheng.utils.SharedPreferenceUtils;
@@ -29,12 +28,9 @@ import com.umeng.socialize.ShareAction;
 import com.umeng.socialize.UMShareListener;
 import com.umeng.socialize.bean.SHARE_MEDIA;
 
-import org.greenrobot.eventbus.EventBus;
-
 import java.util.List;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 /**
@@ -79,7 +75,7 @@ public class WebActivity extends BaseActivity {
 
     }
 
-
+    @SuppressLint("SetJavaScriptEnabled")
     @Override
     public void initData() {
         Intent intent = getIntent();
@@ -108,7 +104,7 @@ public class WebActivity extends BaseActivity {
             nr=content.getContent();
             title=content.getTitle();
         }
-        b = (Boolean) SharedPreferenceUtils.get(this,url, false);
+        b = (Boolean) SharedPreferenceUtils.get(this,url,false);
         if (b) {
             ivGood.setImageResource(R.mipmap.icon_like_green);
         }
@@ -180,7 +176,6 @@ public class WebActivity extends BaseActivity {
                         Collection collection=new Collection(url,title,nr);
                         LiteOrmUtils.insert(collection);
                         s=true;
-                        EventBus.getDefault().post(title);
                     }
                 }else {
                     startActivity(new Intent(this, LogInActivity.class));
@@ -226,6 +221,9 @@ public class WebActivity extends BaseActivity {
                             .open();
                 break;
             case R.id.iv_talk:
+                Intent intent=new Intent(this, CommentActivity.class);
+                intent.putExtra("url",url);
+                startActivity(intent);
                 break;
             case R.id.floating_button:
                 finish();
@@ -233,4 +231,24 @@ public class WebActivity extends BaseActivity {
         }
     }
 
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+        f = (Boolean) SharedPreferenceUtils.get(this, Flags.IsLogInFlag, false);
+        if(!f){
+            ivCollection.setImageResource(R.mipmap.icon_star);
+        }else{
+            List<Collection> collections= LiteOrmUtils.getQueryByWhere(Collection.class, "url", new String[]{this.url});
+            if(collections.size()>0) {
+                Collection collection = collections.get(0);
+                if (TextUtils.equals(collection.getUrl(), url)) {
+                    ivCollection.setImageResource(R.mipmap.icon_star_green);
+                    s = true;
+                } else {
+                    ivCollection.setImageResource(R.mipmap.icon_star);
+                    s = false;
+                }
+            }
+        }
+    }
 }

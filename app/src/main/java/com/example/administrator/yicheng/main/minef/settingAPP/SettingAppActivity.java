@@ -1,6 +1,7 @@
 package com.example.administrator.yicheng.main.minef.settingAPP;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.View;
@@ -154,13 +155,15 @@ public class SettingAppActivity extends BaseActivity implements DashSpinner.OnDo
                 break;
 
             case R.id.settingapp_scoreToApp://为我们打分
-                Intent intent1 = new Intent("android.intent.action.MAIN");
-
-                intent1.addCategory("android.intent.category.APP_MARKET");
-                intent1.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+//                Intent intent1 = new Intent("android.intent.action.MAIN");
+//
+//                intent1.addCategory("android.intent.category.APP_MARKET");
+//                intent1.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+//                startActivity(intent1);
+                Uri uri = Uri.parse("market://details?id="+ "com.ours.weizhi");
+                Intent intent1 = new Intent(Intent.ACTION_VIEW, uri);
+                intent1.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 startActivity(intent1);
-
-
                 break;
 
             case R.id.settingapp_about://关于我们
@@ -176,7 +179,6 @@ public class SettingAppActivity extends BaseActivity implements DashSpinner.OnDo
                         Intent intent = new Intent("exitLogIn");
                         intent.putExtra("exit", "exit");
                         sendBroadcast(intent);
-
                         settingExitApp.setAlpha(122);
                         settingExitApp.setEnabled(false);
                     }

@@ -5,6 +5,7 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -52,6 +53,16 @@ public class MineFragment extends BaseFragment implements MineContract.View,View
 
     @Override
     public void initView() {
+        String name= (String) SharedPreferenceUtils.get(getContext(), Flags.IsLogIngNameFlag,"");
+        if(!TextUtils.isEmpty(name)) {
+            List<RegisterPeople> peoples = LiteOrmUtils.getQueryByWhere(RegisterPeople.class, "number", new String[]{name});
+            String userName = peoples.get(0).getUserName();
+            fourFragmentTopName.setText(userName);
+            fourFragmentTopName.setTextSize(16);
+            String sex = peoples.get(0).getSex();
+            fourFragmentEtSex.setText(sex);
+            fourFragmentEtSex.setVisibility(View.VISIBLE);
+        }
         fourFragmentLogin.setOnClickListener(this);
         fourFragmentTopName.setOnClickListener(this);
         fourFragmentMiddleMsgItem.setOnClickListener(this);
