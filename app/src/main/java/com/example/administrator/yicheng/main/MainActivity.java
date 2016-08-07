@@ -4,14 +4,19 @@ package com.example.administrator.yicheng.main;
 import android.support.v4.app.FragmentTransaction;
 import android.widget.RadioGroup;
 
+import com.baidu.location.LocationClient;
+import com.baidu.mapapi.SDKInitializer;
 import com.example.administrator.yicheng.FragmentFactory;
 import com.example.administrator.yicheng.R;
 import com.example.administrator.yicheng.base.BaseActivity;
+import com.example.administrator.yicheng.bean.Collection;
+import com.example.administrator.yicheng.config.Flags;
 import com.example.administrator.yicheng.main.Read.ReadFragment;
 import com.example.administrator.yicheng.main.blogdayf.BlogdayFragment;
 import com.example.administrator.yicheng.main.minef.MineFragment;
 import com.example.administrator.yicheng.main.profilef.ProfileFragment;
 import com.example.administrator.yicheng.utils.LiteOrmUtils;
+import com.example.administrator.yicheng.utils.SharedPreferenceUtils;
 
 import java.util.List;
 
@@ -26,6 +31,7 @@ public class MainActivity extends BaseActivity implements MainContract.View {
     private ReadFragment readFragment;
     private ProfileFragment profileFragment;
     private MineFragment mineFragment;
+    private LocationClient locationClient;
 
     @Override
     public int getLayoutId() {
@@ -35,7 +41,8 @@ public class MainActivity extends BaseActivity implements MainContract.View {
 
     @Override
     public void initView() {
-        LiteOrmUtils.creatLiteOrm(this,"registerPeople");//单例模式创建唯一数据库
+        SDKInitializer.initialize(getApplicationContext());
+        LiteOrmUtils.creatLiteOrm(this, "registerPeople");//单例模式创建唯一数据库
         blogdayFragment = (BlogdayFragment) FragmentFactory.creatFragment(FragmentFactory.Blogday_fragment);
         readFragment = (ReadFragment) FragmentFactory.creatFragment(FragmentFactory.Read_fragment);
         profileFragment = (ProfileFragment) FragmentFactory.creatFragment(FragmentFactory.Profile_fragment);
@@ -46,7 +53,7 @@ public class MainActivity extends BaseActivity implements MainContract.View {
                 readFragment).add(R.id.the_main_activity_LinearLayoutContainer,
                 profileFragment).add(R.id.the_main_activity_LinearLayoutContainer,
                 mineFragment);
-               fragmentTransaction.hide(readFragment).hide(profileFragment).hide(mineFragment).commit();
+        fragmentTransaction.hide(readFragment).hide(profileFragment).hide(mineFragment).commit();
         theMainActivityRadioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup group, int checkedId) {
@@ -79,6 +86,7 @@ public class MainActivity extends BaseActivity implements MainContract.View {
     public void initData() {
 
     }
+
     @Override
     protected void onResume() {
         super.onResume();
@@ -89,5 +97,12 @@ public class MainActivity extends BaseActivity implements MainContract.View {
     protected void onPause() {
         super.onPause();
         JPushInterface.onPause(this);
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        SharedPreferenceUtils.remove(this, Flags.IsLogInFlag);
+
     }
 }

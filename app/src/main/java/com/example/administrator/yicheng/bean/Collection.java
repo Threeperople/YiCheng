@@ -5,24 +5,23 @@ import com.litesuits.orm.db.annotation.PrimaryKey;
 import com.litesuits.orm.db.annotation.Table;
 import com.litesuits.orm.db.enums.AssignType;
 
+import java.io.Serializable;
+
 /**
  * Created by Jensen on 2016/8/6.
  */
 @Table("collection")
-public class Collection {
+public class Collection implements Serializable{
     @PrimaryKey(AssignType.AUTO_INCREMENT)
     private int id;
+    private String url;
+    private String title;
+    private String Content;
 
-    private CityContent cityContent;
-
-    private BlogdaycontentItem blogdaycontentItem;
-
-    private Content content;
-
-    public Collection( CityContent cityContent, BlogdaycontentItem blogdaycontentItem, Content content) {
-        this.cityContent = cityContent;
-        this.blogdaycontentItem = blogdaycontentItem;
-        this.content = content;
+    public Collection(String url, String title, String content) {
+        this.url = url;
+        this.title = title;
+        Content = content;
     }
 
     public int getId() {
@@ -33,27 +32,27 @@ public class Collection {
         this.id = id;
     }
 
-    public CityContent getCityContent() {
-        return cityContent;
+    public String getUrl() {
+        return url;
     }
 
-    public void setCityContent(CityContent cityContent) {
-        this.cityContent = cityContent;
+    public void setUrl(String url) {
+        this.url = url;
     }
 
-    public BlogdaycontentItem getBlogdaycontentItem() {
-        return blogdaycontentItem;
+    public String getTitle() {
+        return title;
     }
 
-    public void setBlogdaycontentItem(BlogdaycontentItem blogdaycontentItem) {
-        this.blogdaycontentItem = blogdaycontentItem;
+    public void setTitle(String title) {
+        this.title = title;
     }
 
-    public Content getContent() {
-        return content;
+    public String getContent() {
+        return Content;
     }
 
-    public void setContent(Content content) {
-        this.content = content;
+    public void setContent(String content) {
+        Content = content;
     }
 }

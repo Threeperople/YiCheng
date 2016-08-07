@@ -82,7 +82,7 @@ public class RegisterActivity extends BaseActivity {
 
     @Override
     public void initView() {
-
+       BmobSMS.initialize(this,"ac66f212be27a6f0d9135f158f0d7533");
     }
 
     @Override

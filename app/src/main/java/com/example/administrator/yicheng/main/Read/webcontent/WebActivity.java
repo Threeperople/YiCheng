@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.media.MediaBrowserCompat;
+import android.text.TextUtils;
 import android.view.MotionEvent;
 import android.view.View;
 import android.webkit.WebSettings;
@@ -27,6 +28,10 @@ import com.example.administrator.yicheng.utils.SharedPreferenceUtils;
 import com.umeng.socialize.ShareAction;
 import com.umeng.socialize.UMShareListener;
 import com.umeng.socialize.bean.SHARE_MEDIA;
+
+import org.greenrobot.eventbus.EventBus;
+
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -57,6 +62,12 @@ public class WebActivity extends BaseActivity {
     private Content content;
     private BlogdaycontentItem blogdaycontentItem;
     private CityContent cityContent;
+    private Boolean f;
+    private static boolean s=false;
+    private String nr;
+    private String title;
+    private Collection collection;
+
 
     @Override
     public int getLayoutId() {
@@ -77,12 +88,25 @@ public class WebActivity extends BaseActivity {
             blogdaycontentItem = (BlogdaycontentItem) intent.getSerializableExtra("url");
             if(blogdaycontentItem==null){
                 cityContent = (CityContent) intent.getSerializableExtra("cityContenturl");
-                url= cityContent.getSummary();
+                if(cityContent==null){
+                    collection = (Collection) intent.getSerializableExtra("collection");
+                    url=collection.getUrl();
+                    nr=collection.getContent();
+                    title=collection.getTitle();
+                }else {
+                    url = cityContent.getSummary();
+                    nr = cityContent.getDescription();
+                    title = cityContent.getTitle();
+                }
             }else {
                 url = blogdaycontentItem.getUrl();
+                nr=blogdaycontentItem.getDescription();
+                title=blogdaycontentItem.getTitle();
             }
         }else {
             url = content.getSummary();
+            nr=content.getContent();
+            title=content.getTitle();
         }
         b = (Boolean) SharedPreferenceUtils.get(this,url, false);
         if (b) {
@@ -123,6 +147,22 @@ public class WebActivity extends BaseActivity {
                 return false;
             }
         });
+        f = (Boolean) SharedPreferenceUtils.get(this, Flags.IsLogInFlag, false);
+        if(!f){
+            ivCollection.setImageResource(R.mipmap.icon_star);
+        }else{
+            List<Collection> collections= LiteOrmUtils.getQueryByWhere(Collection.class, "url", new String[]{this.url});
+            if(collections.size()>0) {
+                Collection collection = collections.get(0);
+                if (TextUtils.equals(collection.getUrl(), url)) {
+                    ivCollection.setImageResource(R.mipmap.icon_star_green);
+                    s = true;
+                } else {
+                    ivCollection.setImageResource(R.mipmap.icon_star);
+                    s = false;
+                }
+            }
+        }
     }
 
 
@@ -130,11 +170,18 @@ public class WebActivity extends BaseActivity {
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.iv_collection:
-                Boolean f = (Boolean) SharedPreferenceUtils.get(this, Flags.IsLogInFlag, false);
                 if(f) {
-                    LiteOrmUtils.creatLiteOrm(this,"collection");
-                    Collection c=new Collection(cityContent,blogdaycontentItem,content);
-                    LiteOrmUtils.save(c);
+                    if(s){
+                        ivCollection.setImageResource(R.mipmap.icon_star);
+                        s=false;
+                        LiteOrmUtils.deleteWhere(Collection.class,"url",new String[]{url});
+                    }else {
+                        ivCollection.setImageResource(R.mipmap.icon_star_green);
+                        Collection collection=new Collection(url,title,nr);
+                        LiteOrmUtils.insert(collection);
+                        s=true;
+                        EventBus.getDefault().post(title);
+                    }
                 }else {
                     startActivity(new Intent(this, LogInActivity.class));
                 }
@@ -170,24 +217,13 @@ public class WebActivity extends BaseActivity {
 
                     }
                 };
-                if(content!=null) {
-                    new ShareAction(this).setDisplayList(displaylist)
-                            .withText(content.getContent())
-                            .withTitle(content.getTitle())
+                new ShareAction(this).setDisplayList(displaylist)
+                            .withText(nr)
+                            .withTitle(title)
                             .withTargetUrl(url)
                             .setDisplayList(displaylist)
                             .setListenerList(listener)
                             .open();
-                }else{
-                    new ShareAction(this).setDisplayList(displaylist)
-                            .withText(blogdaycontentItem.getTitle())
-                            .withTitle(blogdaycontentItem.getAuthor())
-                            .withTargetUrl(url)
-                            .setDisplayList(displaylist)
-                            .setListenerList(listener)
-                            .open();
-                }
-
                 break;
             case R.id.iv_talk:
                 break;
