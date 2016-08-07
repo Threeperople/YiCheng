@@ -7,5 +7,6 @@ public class Flags {
 
     public  static final String IsLogInFlag="isLogIn";
     public static final String IsAcceptMsgFlag="accept";
+    public static final String IsLogIngNameFlag="Name";
 
 }

@@ -1,9 +1,10 @@
 package com.example.administrator.yicheng.main.Read.webcontent;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
-import android.os.Bundle;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.FloatingActionButton;
+import android.text.TextUtils;
 import android.view.MotionEvent;
 import android.view.View;
 import android.webkit.WebSettings;
@@ -16,16 +17,20 @@ import com.example.administrator.yicheng.R;
 import com.example.administrator.yicheng.base.BaseActivity;
 import com.example.administrator.yicheng.bean.BlogdaycontentItem;
 import com.example.administrator.yicheng.bean.CityContent;
+import com.example.administrator.yicheng.bean.Collection;
 import com.example.administrator.yicheng.bean.Content;
-import com.example.administrator.yicheng.main.MainActivity;
+import com.example.administrator.yicheng.config.Flags;
+import com.example.administrator.yicheng.main.Read.webcontent.comment.CommentActivity;
 import com.example.administrator.yicheng.main.minef.login.LogInActivity;
+import com.example.administrator.yicheng.utils.LiteOrmUtils;
 import com.example.administrator.yicheng.utils.SharedPreferenceUtils;
 import com.umeng.socialize.ShareAction;
 import com.umeng.socialize.UMShareListener;
 import com.umeng.socialize.bean.SHARE_MEDIA;
 
+import java.util.List;
+
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 /**
@@ -52,6 +57,13 @@ public class WebActivity extends BaseActivity {
     private static boolean b;
     private Content content;
     private BlogdaycontentItem blogdaycontentItem;
+    private CityContent cityContent;
+    private Boolean f;
+    private static boolean s=false;
+    private String nr;
+    private String title;
+    private Collection collection;
+
 
     @Override
     public int getLayoutId() {
@@ -63,30 +75,7 @@ public class WebActivity extends BaseActivity {
 
     }
 
-//    @Override
-//    public boolean onTouchEvent(MotionEvent event) {
-//           float rawY = event.getRawY();
-//        Log.i("TAG", "onTouchEvent: "+event.getAction());
-//        switch (event.getAction()){
-//            case MotionEvent.ACTION_DOWN:
-//                y1=rawY;
-//                Log.i("TAG", "onTouchEvent: "+y1+"heh");
-//                break;
-//            case MotionEvent.ACTION_UP:
-//                y2 = event.getRawY();
-//                if(y2-y1>=10){
-//                    Log.i("TAG", "onTouchEvent: 下"+y1+" "+y2);
-//                    appbar.setVisibility(View.GONE);
-//                }if(y1-y2>=10){
-//                Log.i("TAG", "onTouchEvent: 上"+y1+" "+y2);
-//                appbar.setVisibility(View.VISIBLE);
-//            }
-//                break;
-//        }
-//
-//        return true;
-//    }
-
+    @SuppressLint("SetJavaScriptEnabled")
     @Override
     public void initData() {
         Intent intent = getIntent();
@@ -94,15 +83,28 @@ public class WebActivity extends BaseActivity {
         if(content==null){
             blogdaycontentItem = (BlogdaycontentItem) intent.getSerializableExtra("url");
             if(blogdaycontentItem==null){
-                CityContent cityContent= (CityContent) intent.getSerializableExtra("cityContenturl");
-                url=cityContent.getSummary();
+                cityContent = (CityContent) intent.getSerializableExtra("cityContenturl");
+                if(cityContent==null){
+                    collection = (Collection) intent.getSerializableExtra("collection");
+                    url=collection.getUrl();
+                    nr=collection.getContent();
+                    title=collection.getTitle();
+                }else {
+                    url = cityContent.getSummary();
+                    nr = cityContent.getDescription();
+                    title = cityContent.getTitle();
+                }
             }else {
                 url = blogdaycontentItem.getUrl();
+                nr=blogdaycontentItem.getDescription();
+                title=blogdaycontentItem.getTitle();
             }
         }else {
             url = content.getSummary();
+            nr=content.getContent();
+            title=content.getTitle();
         }
-        b = (Boolean) SharedPreferenceUtils.get(this,url, false);
+        b = (Boolean) SharedPreferenceUtils.get(this,url,false);
         if (b) {
             ivGood.setImageResource(R.mipmap.icon_like_green);
         }
@@ -141,6 +143,22 @@ public class WebActivity extends BaseActivity {
                 return false;
             }
         });
+        f = (Boolean) SharedPreferenceUtils.get(this, Flags.IsLogInFlag, false);
+        if(!f){
+            ivCollection.setImageResource(R.mipmap.icon_star);
+        }else{
+            List<Collection> collections= LiteOrmUtils.getQueryByWhere(Collection.class, "url", new String[]{this.url});
+            if(collections.size()>0) {
+                Collection collection = collections.get(0);
+                if (TextUtils.equals(collection.getUrl(), url)) {
+                    ivCollection.setImageResource(R.mipmap.icon_star_green);
+                    s = true;
+                } else {
+                    ivCollection.setImageResource(R.mipmap.icon_star);
+                    s = false;
+                }
+            }
+        }
     }
 
 
@@ -148,8 +166,20 @@ public class WebActivity extends BaseActivity {
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.iv_collection:
-
-                startActivity(new Intent(this, LogInActivity.class));
+                if(f) {
+                    if(s){
+                        ivCollection.setImageResource(R.mipmap.icon_star);
+                        s=false;
+                        LiteOrmUtils.deleteWhere(Collection.class,"url",new String[]{url});
+                    }else {
+                        ivCollection.setImageResource(R.mipmap.icon_star_green);
+                        Collection collection=new Collection(url,title,nr);
+                        LiteOrmUtils.insert(collection);
+                        s=true;
+                    }
+                }else {
+                    startActivity(new Intent(this, LogInActivity.class));
+                }
                 break;
             case R.id.iv_good:
                 if (b) {
@@ -182,26 +212,18 @@ public class WebActivity extends BaseActivity {
 
                     }
                 };
-                if(content!=null) {
-                    new ShareAction(this).setDisplayList(displaylist)
-                            .withText(content.getContent())
-                            .withTitle(content.getTitle())
+                new ShareAction(this).setDisplayList(displaylist)
+                            .withText(nr)
+                            .withTitle(title)
                             .withTargetUrl(url)
                             .setDisplayList(displaylist)
                             .setListenerList(listener)
                             .open();
-                }else{
-                    new ShareAction(this).setDisplayList(displaylist)
-                            .withText(blogdaycontentItem.getTitle())
-                            .withTitle(blogdaycontentItem.getAuthor())
-                            .withTargetUrl(url)
-                            .setDisplayList(displaylist)
-                            .setListenerList(listener)
-                            .open();
-                }
-
                 break;
             case R.id.iv_talk:
+                Intent intent=new Intent(this, CommentActivity.class);
+                intent.putExtra("url",url);
+                startActivity(intent);
                 break;
             case R.id.floating_button:
                 finish();
@@ -209,4 +231,24 @@ public class WebActivity extends BaseActivity {
         }
     }
 
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+        f = (Boolean) SharedPreferenceUtils.get(this, Flags.IsLogInFlag, false);
+        if(!f){
+            ivCollection.setImageResource(R.mipmap.icon_star);
+        }else{
+            List<Collection> collections= LiteOrmUtils.getQueryByWhere(Collection.class, "url", new String[]{this.url});
+            if(collections.size()>0) {
+                Collection collection = collections.get(0);
+                if (TextUtils.equals(collection.getUrl(), url)) {
+                    ivCollection.setImageResource(R.mipmap.icon_star_green);
+                    s = true;
+                } else {
+                    ivCollection.setImageResource(R.mipmap.icon_star);
+                    s = false;
+                }
+            }
+        }
+    }
 }

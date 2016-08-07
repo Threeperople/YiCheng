@@ -60,7 +60,8 @@ public class RegisterActivity extends BaseActivity {
             super.handleMessage(msg);
             switch (msg.what) {
                 case 1:
-                    String  i = (String) msg.obj;
+                    Integer m= (Integer) msg.obj;
+                    String i=String.valueOf(m);
                     if(!TextUtils.isEmpty(i)){
                         if(i.equals("1")){
                             RegisterButtonGetVerifycode.setText("重新获取");
@@ -81,7 +82,7 @@ public class RegisterActivity extends BaseActivity {
 
     @Override
     public void initView() {
-
+        BmobSMS.initialize(this,"ac66f212be27a6f0d9135f158f0d7533");
     }
 
     @Override
@@ -180,7 +181,7 @@ public class RegisterActivity extends BaseActivity {
                                         people.setUserName(userName);
 
                                         LiteOrmUtils.save(people);//验证成功后，向数据库添加数据
-                                        Toast.makeText(RegisterActivity.this, "登录成功", Toast.LENGTH_SHORT).show();
+                                        Toast.makeText(RegisterActivity.this, "注册成功", Toast.LENGTH_SHORT).show();
                                         finish();
                                         overridePendingTransition(R.anim.in_from_left,R.anim.out_to_right);
                                     }else{

@@ -17,12 +17,6 @@ import butterknife.Unbinder;
 public abstract class BaseActivity extends AppCompatActivity implements IBaseView {
 
     private Unbinder bind;
-
-    float xDown=0;
-    float yDown=0;
-    float xUp=0;
-    float yUp=0;
-
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -48,24 +42,7 @@ public abstract class BaseActivity extends AppCompatActivity implements IBaseVie
         overridePendingTransition(R.anim.in_from_left,R.anim.out_to_right);
     }
 
-    @Override
-    public boolean onTouchEvent(MotionEvent event) {
-        if(event.getAction()==MotionEvent.ACTION_DOWN){
-            xDown = event.getX();
-            yDown = event.getY();
-        }
-        if(event.getAction()==MotionEvent.ACTION_UP){
-            xUp = event.getX();
-            yUp = event.getY();
-            if(xUp-xDown>50){
-                finish();
-                overridePendingTransition(R.anim.in_from_left,R.anim.out_to_right);
-            }
 
-        }
-
-        return super.onTouchEvent(event);
-    }
     @Override
     protected void onDestroy() {
         super.onDestroy();

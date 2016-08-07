@@ -148,9 +148,9 @@ public class LogInActivity extends BaseActivity {
                     if (secretNum.equals(password)) {
                         Toast.makeText(LogInActivity.this, "登录成功", Toast.LENGTH_SHORT).show();
                         SharedPreferenceUtils.putAndApply(this, Flags.IsLogInFlag,true);
+                        SharedPreferenceUtils.putAndApply(this,Flags.IsLogIngNameFlag,number);
                         Intent intent = new Intent("success");
                         intent.putExtra("name", number);
-
                         sendBroadcast(intent);
                         finish();
 
