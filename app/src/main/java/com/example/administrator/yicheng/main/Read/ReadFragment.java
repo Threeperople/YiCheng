@@ -203,7 +203,7 @@ public class ReadFragment extends BaseFragment implements ReadContract.View, Can
                 startActivityForResult(intent,1);
                 break;
             case R.id.add:
-
+                Intent intent1=new Intent();
                 break;
         }
     }

@@ -1,6 +1,7 @@
 package com.example.administrator.yicheng.main.minef.settingAPP;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
@@ -172,28 +173,21 @@ public class SettingAppActivity extends BaseActivity implements DashSpinner.OnDo
                 break;
 
             case R.id.setting_exitApp://如果登录就退出，未登录按钮无法点击
-                Boolean logIn = (Boolean) SharedPreferenceUtils.get(this, Flags.IsLogInFlag, false);
-                    if(logIn==true){
-                        SharedPreferenceUtils.remove(this, Flags.IsLogInFlag);
-                        Intent intent = new Intent("exitLogIn");
-                        intent.putExtra("exit", "exit");
-                        sendBroadcast(intent);
-                        settingExitApp.setAlpha(122);
-                        settingExitApp.setEnabled(false);
-                    }
+                SharedPreferenceUtils.remove(this, Flags.IsLogInFlag);
+                isLogIn();
+                Intent intent = new Intent("exitLogIn");
+                intent.putExtra("exit", "exit");
+                sendBroadcast(intent);
                 break;
         }
     }
 
     private void isLogIn() {
         Boolean logIn = (Boolean) SharedPreferenceUtils.get(this, Flags.IsLogInFlag, false);
-        if (logIn != null) {
-            if (logIn == true) {
-                settingExitApp.setAlpha(254);
-                settingExitApp.setEnabled(true);
-            }
+        if (logIn) {
+            settingExitApp.setEnabled(true);
         } else {
-            settingExitApp.setAlpha(122);
+            settingExitApp.setTextColor(Color.argb(122,256,0,0));
             settingExitApp.setEnabled(false);
         }
     }

@@ -74,7 +74,6 @@ public class WelcomeActivity extends BaseActivity {
                             isFirst = (Boolean) SharedPreferenceUtils.get(WelcomeActivity.this, "isFirst", true);
                             SharedPreferenceUtils.remove(WelcomeActivity.this, "isFirst");
                             SharedPreferenceUtils.putAndApply(WelcomeActivity.this, "isFirst", false);
-
                             startActivity(new Intent(WelcomeActivity.this, FirstInActivity.class));
                             finish();
                             overridePendingTransition(R.anim.in_from_right, R.anim.out_to_left);
