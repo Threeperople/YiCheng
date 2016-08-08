@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.example.administrator.yicheng.WelcomeActivity">
+
+    <ImageView
+        android:id="@+id/splash_second"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:src="@mipmap/welcome_icon_1"
+        android:scaleType="fitXY"
+        />
+    <ImageView
+        android:id="@+id/splash_first"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:src="@mipmap/splash_first"
+        android:scaleType="fitXY"
+        />
+
+
+</RelativeLayout>

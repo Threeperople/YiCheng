@@ -72,11 +72,7 @@
         </service>
         <activity android:name=".main.MainActivity"
             android:launchMode="singleTask">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
         <activity android:name=".main.minef.login.LogInActivity" />
         <activity android:name=".main.Read.news.NewsActivity" />
@@ -190,6 +186,14 @@
         <activity android:name=".main.minef.settingAPP.aboutus.AboutUsActivity"/>
         <activity android:name=".main.Read.location.LocationActivity"/>
         <activity android:name=".main.Read.webcontent.comment.CommentActivity"/>
+        <activity android:name=".FirstInActivity"></activity>
+        <activity android:name=".WelcomeActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
     </application>
 
 </manifest>
