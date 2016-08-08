@@ -14,4 +14,5 @@ public interface BlogDayService {
     @GET(UrlsToBlogday.Path.ITEM_URL)
     Call<BlogdayContentmain> getBlogdaymain(@Query(UrlsToBlogday.Key.DAY_TIME) String value);
 
+
 }

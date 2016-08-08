@@ -1,32 +1,29 @@
 package com.example.administrator.yicheng.retrofit;
 
 import com.example.administrator.yicheng.config.Urls;
-import com.example.administrator.yicheng.config.UrlsToBlogday;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
-/**
- * Created by Administrator on 2016/8/4.
- */
-public class RetrofitHelper {
-    private static RetrofitHelper instance;
+public class ProfileRetrofitHelper {
+    private static ProfileRetrofitHelper instance;
 
-    private RetrofitHelper() {
+    private ProfileRetrofitHelper() {
     }
 
-    public static synchronized RetrofitHelper getInstance() {
+    public static synchronized ProfileRetrofitHelper getInstance() {
         if (instance == null) {
-            instance = new RetrofitHelper();
+            instance = new ProfileRetrofitHelper();
         }
         return instance;
     }
+
     public Retrofit retrofit;
     public Gson gson;
 
-    public <T> T createRetrofitService(Class<T> service) {//请求网络，并对数据造型
+    public <T> T createRetrofitService(Class<T> service) {
         if (retrofit == null) {
             createGson();
             initRetrofit();
@@ -36,7 +33,7 @@ public class RetrofitHelper {
 
     private void initRetrofit() {
         retrofit = new Retrofit.Builder()
-                .baseUrl(UrlsToBlogday.Path.BASE_URL)
+                .baseUrl(Urls.Path.BASE_URL)
                 .addConverterFactory(GsonConverterFactory.create(gson))
                 .build();
     }

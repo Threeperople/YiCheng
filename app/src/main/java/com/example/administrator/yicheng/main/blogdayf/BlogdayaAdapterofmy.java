@@ -13,7 +13,6 @@ import com.example.administrator.yicheng.R;
 import com.example.administrator.yicheng.bean.BlogdaycontentItem;
 import com.facebook.drawee.view.SimpleDraweeView;
 
-
 import java.util.List;
 
 /**

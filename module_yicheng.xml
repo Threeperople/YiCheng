@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="module_yicheng" default="compile.module.yicheng">
+  <dirname property="module.yicheng.basedir" file="${ant.file.module_yicheng}"/>
+  
+  <property name="module.jdk.home.yicheng" value="${project.jdk.home}"/>
+  <property name="module.jdk.bin.yicheng" value="${project.jdk.bin}"/>
+  <property name="module.jdk.classpath.yicheng" value="${project.jdk.classpath}"/>
+  
+  <property name="compiler.args.yicheng" value="-encoding UTF-8 -source 1.7 -target 1.7 ${compiler.args}"/>
+  
+  <property name="yicheng.output.dir" value="${module.yicheng.basedir}/build/classes/production/YiCheng"/>
+  <property name="yicheng.testoutput.dir" value="${module.yicheng.basedir}/build/classes/test/YiCheng"/>
+  
+  <path id="yicheng.module.bootclasspath">
+    <!-- Paths to be included in compilation bootclasspath -->
+  </path>
+  
+  <path id="yicheng.module.production.classpath">
+    <path refid="${module.jdk.classpath.yicheng}"/>
+  </path>
+  
+  <path id="yicheng.runtime.production.module.classpath">
+    <pathelement location="${yicheng.output.dir}"/>
+  </path>
+  
+  <path id="yicheng.module.classpath">
+    <path refid="${module.jdk.classpath.yicheng}"/>
+    <pathelement location="${yicheng.output.dir}"/>
+  </path>
+  
+  <path id="yicheng.runtime.module.classpath">
+    <pathelement location="${yicheng.testoutput.dir}"/>
+    <pathelement location="${yicheng.output.dir}"/>
+  </path>
+  
+  
+  <patternset id="excluded.from.module.yicheng">
+    <patternset refid="ignored.files"/>
+  </patternset>
+  
+  <patternset id="excluded.from.compilation.yicheng">
+    <patternset refid="excluded.from.module.yicheng"/>
+  </patternset>
+  
+  
+  <target name="compile.module.yicheng" depends="compile.module.yicheng.production,compile.module.yicheng.tests" description="Compile module YiCheng"/>
+  
+  <target name="compile.module.yicheng.production" depends="register.custom.compilers" description="Compile module YiCheng; production classes"/>
+  
+  <target name="compile.module.yicheng.tests" depends="register.custom.compilers,compile.module.yicheng.production" description="compile module YiCheng; test classes" unless="skip.tests"/>
+  
+  <target name="clean.module.yicheng" description="cleanup module">
+    <delete dir="${yicheng.output.dir}"/>
+    <delete dir="${yicheng.testoutput.dir}"/>
+  </target>
+</project>

@@ -54,6 +54,7 @@
         android:textSize="24sp"
         android:visibility="gone"
         android:textColor="#387FFF"
+
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="30dp"
        android:layout_above="@+id/my_LinearLayout"

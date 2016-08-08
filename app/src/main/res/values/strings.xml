@@ -9,4 +9,5 @@
         <item>女</item>
         <item>保密</item>
     </string-array>
+    <string name="apply">报名已结束</string>
 </resources>

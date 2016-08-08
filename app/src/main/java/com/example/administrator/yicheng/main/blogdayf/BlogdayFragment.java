@@ -119,7 +119,7 @@ public class BlogdayFragment extends BaseFragment implements BlogdayContract.Vie
             }
         });
 
-    }
+}
 
     @Override
     public void onFailGet(String msg) {

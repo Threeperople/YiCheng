@@ -82,6 +82,7 @@
         <activity android:name=".main.minef.store.StoreActicity" />
         <activity android:name=".main.minef.settingAPP.SettingAppActivity" />
         <activity android:name=".main.Read.webcontent.WebActivity" />
+        <activity android:name=".main.profilef.profilewebcity.CityPlayActivity"/>
         <activity
             android:name=".WBShareActivity"
             android:configChanges="keyboardHidden|orientation"
