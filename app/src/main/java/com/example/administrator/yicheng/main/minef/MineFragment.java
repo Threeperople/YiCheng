@@ -94,6 +94,7 @@ public class MineFragment extends BaseFragment implements MineContract.View,View
 
                     Intent intent = new Intent(getActivity(), SettingActivity.class);
                     getActivity().startActivity(intent);
+
                     //activity左出右进动画效果
                     getActivity().overridePendingTransition(R.anim.in_from_right,R.anim.out_to_left);
                 }
