@@ -1,10 +1,7 @@
 package com.example.administrator.yicheng.main.profilef;
 
-import android.graphics.Bitmap;
 import android.util.Log;
-import android.view.View;
 import android.widget.ImageView;
-import android.widget.ListAdapter;
 
 import com.bumptech.glide.Glide;
 import com.chad.library.adapter.base.BaseQuickAdapter;

@@ -24,6 +24,7 @@ import android.view.animation.DecelerateInterpolator;
 
 import com.example.administrator.yicheng.R;
 
+
 /**
  * Created by Melvin Lobo on 2/5/2016.
  * The behaviour of the Dash Spinner is as follows:
