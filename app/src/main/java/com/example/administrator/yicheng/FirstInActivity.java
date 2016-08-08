@@ -48,7 +48,7 @@ public class FirstInActivity extends AppCompatActivity {
             @Override
             public void onPageSelected(int position) {
                 tvTitle.setText(titles[position]);
-                llPoints.getChildAt(position).setBackgroundResource(R.mipmap.dot_enable);
+                llPoints.getChildAt(position). setBackgroundResource(R.mipmap.dot_enable);
                 llPoints.getChildAt(prePosition).setBackgroundResource(R.mipmap.dot_normal);
                 prePosition = position;
                 if(position==mList.size()-1){
