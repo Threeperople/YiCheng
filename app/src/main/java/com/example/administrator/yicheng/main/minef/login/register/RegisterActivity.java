@@ -105,39 +105,41 @@ public class RegisterActivity extends BaseActivity {
                 String phone = RegisterEtPhoneNum.getText().toString().trim();
                 if(!phone.matches("[1][358]\\d{9}")){
                     Toast.makeText(RegisterActivity.this, "请输入正确的手机号", Toast.LENGTH_SHORT).show();
-                }else{
-                    if(phoneIsInstance(phone)){
+                }else {
+                    if (phoneIsInstance(phone)) {
                         Toast.makeText(RegisterActivity.this, "已注册，请直接登录", Toast.LENGTH_SHORT).show();
                         finish();
-                        overridePendingTransition(R.anim.in_from_left,R.anim.out_to_right);
-                    }else{
-
-
-
-                        BmobSMS.requestSMSCode(RegisterActivity.this, phone,MODE_NAME,new RequestSMSCodeListener() {
-                            @Override
-                            public void done(Integer smsId,BmobException ex) {
-                                if(ex==null){//验证码发送成功
-                                    Log.i("bmob", "短信id："+smsId);//用于查询本次短信发送详情
-                                }
-                            }
-                        });
-                        new Thread(new Runnable() {
-                            @Override
-                            public void run() {
-                                for(int i=60;i>0;i--){
-                                    try {
-                                        Thread.sleep(1000);
-                                        Message message = mHandler.obtainMessage(1,i);
-                                        mHandler.sendMessage(message);
-                                    } catch (InterruptedException e) {
-                                        e.printStackTrace();
-                                    }
-                                }
-                            }
-                        }).start();
+                        overridePendingTransition(R.anim.in_from_left, R.anim.out_to_right);
                     }
                 }
+//              else{
+
+
+
+//                        BmobSMS.requestSMSCode(RegisterActivity.this, phone,MODE_NAME,new RequestSMSCodeListener() {
+//                            @Override
+//                            public void done(Integer smsId,BmobException ex) {
+//                                if(ex==null){//验证码发送成功
+//                                    Log.i("bmob", "短信id："+smsId);//用于查询本次短信发送详情
+//                                }
+//                            }
+//                        });
+//                        new Thread(new Runnable() {
+//                            @Override
+//                            public void run() {
+//                                for(int i=60;i>0;i--){
+//                                    try {
+//                                        Thread.sleep(1000);
+//                                        Message message = mHandler.obtainMessage(1,i);
+//                                        mHandler.sendMessage(message);
+//                                    } catch (InterruptedException e) {
+//                                        e.printStackTrace();
+//                                    }
+//                                }
+//                            }
+//                        }).start();
+//                    }
+//                }
 
                 break;
 
@@ -165,33 +167,33 @@ public class RegisterActivity extends BaseActivity {
                         finish();
                         overridePendingTransition(R.anim.in_from_left,R.anim.out_to_right);
                     }else {
-                        Log.i("bmob", "RegisterActivity.toRegister."+ phoneNum +secretCode+verifyCode);
-                        BmobSMS.verifySmsCode(RegisterActivity.this, phoneNum, verifyCode, new VerifySMSCodeListener() {
-                            @Override
-                            public void done(BmobException ex) {
-                                Log.i("bmob", "K开始验证");
-
-                                if(ex==null){//短信验证码已验证成功
-                                    Log.i("bmob", "验证通过");
-                                    if(phoneNum !=null&&secretCode!=null){
+//                        Log.i("bmob", "RegisterActivity.toRegister."+ phoneNum +secretCode+verifyCode);
+//                        BmobSMS.verifySmsCode(RegisterActivity.this, phoneNum, verifyCode, new VerifySMSCodeListener() {
+//                            @Override
+//                            public void done(BmobException ex) {
+//                                Log.i("bmob", "K开始验证");
+//
+//                                if(ex==null){//短信验证码已验证成功
+//                                    Log.i("bmob", "验证通过");
+                                    if(phoneNum !=null &&secretCode!=null){
                                         RegisterPeople people = new RegisterPeople();
                                         people.setNumber(phoneNum);
                                         people.setPassword(secretCode);
                                         String userName = getUserName(phoneNum).toString();
                                         people.setUserName(userName);
-
                                         LiteOrmUtils.save(people);//验证成功后，向数据库添加数据
                                         Toast.makeText(RegisterActivity.this, "注册成功", Toast.LENGTH_SHORT).show();
                                         finish();
                                         overridePendingTransition(R.anim.in_from_left,R.anim.out_to_right);
-                                    }else{
-                                        showSnackBar(view,"以上信息不能为空！");
                                     }
-                                }else{//验证码错误
-                                    showSnackBar(view,"验证码错误！");
-                                }
-                            }
-                        });
+//                                    else{
+//                                        showSnackBar(view,"以上信息不能为空！");
+//                                    }
+//                                }else{//验证码错误
+//                                    showSnackBar(view,"验证码错误！");
+//                                }
+//                            }
+//                        });
                     }
                 }
 

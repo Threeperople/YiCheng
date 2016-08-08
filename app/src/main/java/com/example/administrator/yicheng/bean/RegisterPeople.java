@@ -1,6 +1,8 @@
 package com.example.administrator.yicheng.bean;
 
 
+import android.net.Uri;
+
 import com.litesuits.orm.db.annotation.Default;
 import com.litesuits.orm.db.annotation.NotNull;
 import com.litesuits.orm.db.annotation.PrimaryKey;
@@ -14,19 +16,23 @@ import com.litesuits.orm.db.enums.AssignType;
 public class RegisterPeople {
     @PrimaryKey(AssignType.AUTO_INCREMENT)
     private int id;
-
     @NotNull
     private String  number;
-
     @NotNull
     private String  password;
-
-    @NotNull
     private String userName;
-
     @Default("保密")
     @NotNull
     private String sex;
+    private String uri;
+
+    public String getUri() {
+        return uri;
+    }
+
+    public void setUri(String uri) {
+        this.uri = uri;
+    }
 
     public int getId() {
         return id;

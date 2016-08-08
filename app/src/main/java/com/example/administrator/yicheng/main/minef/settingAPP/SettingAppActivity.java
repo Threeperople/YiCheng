@@ -173,7 +173,6 @@ public class SettingAppActivity extends BaseActivity implements DashSpinner.OnDo
 
             case R.id.setting_exitApp://如果登录就退出，未登录按钮无法点击
                 Boolean logIn = (Boolean) SharedPreferenceUtils.get(this, Flags.IsLogInFlag, false);
-                if (logIn != null) {
                     if(logIn==true){
                         SharedPreferenceUtils.remove(this, Flags.IsLogInFlag);
                         Intent intent = new Intent("exitLogIn");
@@ -182,7 +181,6 @@ public class SettingAppActivity extends BaseActivity implements DashSpinner.OnDo
                         settingExitApp.setAlpha(122);
                         settingExitApp.setEnabled(false);
                     }
-                }
                 break;
         }
     }

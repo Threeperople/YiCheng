@@ -25,11 +25,15 @@ import android.widget.Toast;
 
 import com.example.administrator.yicheng.R;
 import com.example.administrator.yicheng.base.BaseActivity;
+import com.example.administrator.yicheng.bean.RegisterPeople;
+import com.example.administrator.yicheng.utils.LiteOrmUtils;
+import com.example.administrator.yicheng.utils.UriFileUtils;
 import com.example.administrator.yicheng.view.WheelView;
 
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Arrays;
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -58,6 +62,9 @@ public class SettingActivity extends BaseActivity {
     private String path;
     private String sex;
     private static final String[] SEXS ={"男","保密","女"};
+    private String name;
+    private List<RegisterPeople> user;
+    private Uri uri;
 
     @Override
     public int getLayoutId() {
@@ -66,20 +73,42 @@ public class SettingActivity extends BaseActivity {
 
     @Override
     public void initView() {
-        long time = System.currentTimeMillis();
-        int m = (int) (time / 10000);
-        path = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM).getAbsolutePath() + File.separator + m + ".jpg";
+
     }
 
     @Override
     public void initData() {
-
+        Intent intent = getIntent();
+        String number = intent.getStringExtra("number");
+        user = LiteOrmUtils.getQueryByWhere(RegisterPeople.class, "number", new String[]{number});
+        tvName.setText(user.get(0).getUserName());
+        tvSex.setText(user.get(0).getSex());
+        String uri = user.get(0).getUri();
+        if(uri!=null) {
+            ContentResolver cr = this.getContentResolver();
+            try {
+                fourFragmentImageIcon.setImageBitmap(BitmapFactory.decodeStream(cr.openInputStream(Uri.fromFile(new File(uri)))));
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+            }
+        }
     }
 
     @OnClick({R.id.Setting_toolBarIcon, R.id.fourFragment_image_Icon, R.id.fourFragment_tv_settingImage, R.id.setting_name, R.id.setting_sex})
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.Setting_toolBarIcon:
+                RegisterPeople registerPeople = user.get(0);
+                if(sex!=null) {
+                    registerPeople.setSex(sex);
+                }
+                if(name!=null) {
+                    registerPeople.setUserName(name);
+                }
+                if(uri!=null){
+                    registerPeople.setUri(UriFileUtils.getImageAbsolutePath(this,uri));
+                }
+                LiteOrmUtils.update(registerPeople);
                 finish();
                 overridePendingTransition(R.anim.in_from_left, R.anim.out_to_right);
                 break;
@@ -90,7 +119,9 @@ public class SettingActivity extends BaseActivity {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         if (items[0].equals(items[which])) {
-
+                            long time = System.currentTimeMillis();
+                            int m = (int) (time / 10000);
+                            path = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM).getAbsolutePath() + File.separator + m + ".jpg";
                             Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
                             file = new File(path);
                             //指定了照片的存储路径
@@ -122,9 +153,9 @@ public class SettingActivity extends BaseActivity {
                 dialog.setPositiveButton("确定", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        String s = et_name.getText().toString().trim();
-                        if(!TextUtils.isEmpty(s)){
-                            tvName.setText(s);
+                        name = et_name.getText().toString().trim();
+                        if(!TextUtils.isEmpty(name)){
+                            tvName.setText(name);
                         }
                     }
                 }).setNegativeButton("取消", null).show();
@@ -134,6 +165,7 @@ public class SettingActivity extends BaseActivity {
                 View outerView = LayoutInflater.from(this).inflate(R.layout.wheel_view, null);
                 WheelView wv = (WheelView) outerView.findViewById(R.id.wheel_view_wv);
                 wv.setOffset(0);
+                wv.setSeletion(1);
                 wv.setItems(Arrays.asList(SEXS));
                 wv.setOnWheelViewListener(new WheelView.OnWheelViewListener(){
                     @Override
@@ -178,24 +210,19 @@ public class SettingActivity extends BaseActivity {
         super.onActivityResult(requestCode, resultCode, data);
         if (resultCode == RESULT_OK) {
             //选择图片
+            ContentResolver cr = this.getContentResolver();
             if (requestCode == 1) {
-                Uri uri = data.getData();
-                ContentResolver cr = this.getContentResolver();
-                try {
-                    if (bmp != null)//如果不释放的话，不断取图片，将会内存不够
-                        bmp.recycle();
-                    bmp = BitmapFactory.decodeStream(cr.openInputStream(uri));
-                } catch (FileNotFoundException e) {
-                    // TODO Auto-generated catch block
-                    e.printStackTrace();
-                }
+                uri = data.getData();
             } else if (requestCode == 0) {
-                ContentResolver cr = this.getContentResolver();
-                try {
-                    bmp = BitmapFactory.decodeStream(cr.openInputStream(Uri.fromFile(file)));
-                } catch (FileNotFoundException e) {
-                    e.printStackTrace();
-                }
+                uri = Uri.fromFile(file);
+            }
+            try {
+                if (bmp != null)//如果不释放的话，不断取图片，将会内存不够
+                    bmp.recycle();
+                bmp = BitmapFactory.decodeStream(cr.openInputStream(uri));
+            } catch (FileNotFoundException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
             }
             System.out.println("the bmp toString: " + bmp);
             fourFragmentImageIcon.setImageBitmap(bmp);
@@ -221,7 +248,5 @@ public class SettingActivity extends BaseActivity {
         intent.putExtra("return-data", true);
         startActivityForResult(intent, requestCode);
     }
-
-
 
 }
