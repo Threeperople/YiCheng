@@ -8,6 +8,7 @@ import com.example.administrator.yicheng.FragmentFactory;
 import com.example.administrator.yicheng.R;
 import com.example.administrator.yicheng.base.BaseActivity;
 
+import com.example.administrator.yicheng.bean.RegisterPeople;
 import com.example.administrator.yicheng.main.Read.ReadFragment;
 import com.example.administrator.yicheng.main.blogdayf.BlogdayFragment;
 import com.example.administrator.yicheng.main.minef.MineFragment;

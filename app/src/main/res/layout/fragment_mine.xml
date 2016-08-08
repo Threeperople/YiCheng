@@ -12,7 +12,7 @@
         android:layout_height="150dp"
         android:background="@mipmap/profile_bg"
         >
-        <ImageView
+        <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/fourFragment_Login"
             android:layout_width="70dp"
             android:layout_height="70dp"
