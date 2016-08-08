@@ -1,5 +1,9 @@
 package com.example.administrator.yicheng;
 
+import android.animation.Animator;
+import android.animation.AnimatorListenerAdapter;
+import android.animation.AnimatorSet;
+import android.animation.ObjectAnimator;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -24,6 +28,7 @@ public class WelcomeActivity extends BaseActivity {
     private Boolean isFirst;
     private ImageView ImageFirst;
     private ImageView ImageSencod;
+    private AnimatorSet set;
 
 
     @Override
@@ -59,17 +64,11 @@ public class WelcomeActivity extends BaseActivity {
             public void onAnimationEnd(Animation animation) {
                 ImageFirst.setImageResource(R.mipmap.splash_second);
                 ImageSencod.setVisibility(View.VISIBLE);
-                Animation anim = createPanInAnim();
-                ImageSencod.startAnimation(anim);
-                anim.setAnimationListener(new Animation.AnimationListener() {
+                startFedeIn(ImageSencod);
+                set.addListener(new AnimatorListenerAdapter() {
                     @Override
-                    public void onAnimationStart(Animation animation) {
-
-                    }
-
-                    @Override
-                    public void onAnimationEnd(Animation animation) {
-
+                    public void onAnimationEnd(Animator animation) {
+                        super.onAnimationEnd(animation);
                         if (isFirst) {
                             isFirst = (Boolean) SharedPreferenceUtils.get(WelcomeActivity.this, "isFirst", true);
                             SharedPreferenceUtils.remove(WelcomeActivity.this, "isFirst");
@@ -83,12 +82,6 @@ public class WelcomeActivity extends BaseActivity {
                             finish();
                             overridePendingTransition(R.anim.in_from_right, R.anim.out_to_left);
                         }
-
-                    }
-
-                    @Override
-                    public void onAnimationRepeat(Animation animation) {
-
                     }
                 });
             }
@@ -101,26 +94,6 @@ public class WelcomeActivity extends BaseActivity {
         });
     }
 
-    public Animation createPanInAnim() {
-        AnimationSet ret;
-        Animation anim;
-        ret = new AnimationSet(false);
-        // 创建一个淡入动画
-        anim = new AlphaAnimation(0.5f, 1f);
-        anim.setDuration(2000);
-        anim.setInterpolator(new LinearInterpolator());
-        ret.addAnimation(anim);
-        // 创建一个放大动画
-
-        anim = new ScaleAnimation(1f, 1.2f, 1f, 1.2f, Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF,
-                0.5f);
-        anim.setDuration(2000);
-        anim.setFillAfter(true);
-        anim.setInterpolator(new DecelerateInterpolator());
-        ret.addAnimation(anim);
-
-        return ret;
-    }
 
     @Override
     protected void onResume() {
@@ -133,5 +106,14 @@ public class WelcomeActivity extends BaseActivity {
     protected void onPause() {
         super.onPause();
         JPushInterface.onPause(this);
+    }
+    private void startFedeIn(View imageSencod) {
+        ObjectAnimator alpha = ObjectAnimator.ofFloat(imageSencod, "alpha", 0f, 1f);
+        ObjectAnimator scaleY = ObjectAnimator.ofFloat(imageSencod, "scaleX", 1f, 1.2f);
+        ObjectAnimator scaleX = ObjectAnimator.ofFloat(imageSencod, "scaleY", 1f, 1.2f);
+        set = new AnimatorSet();
+        set.play(alpha).before(scaleY).with(scaleX);
+        set.setDuration(5000);
+        set.start();
     }
 }
