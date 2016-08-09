@@ -343,6 +343,7 @@ public class WheelView extends ScrollView {
 
             @Override
             public int getOpacity() {
+
                 return 0;
             }
         };
