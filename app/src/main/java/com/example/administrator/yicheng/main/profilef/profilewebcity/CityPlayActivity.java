@@ -5,7 +5,6 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.Window;
 import android.webkit.WebSettings;
@@ -17,10 +16,8 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.example.administrator.yicheng.R;
-import com.example.administrator.yicheng.bean.BlogdaycontentItem;
 import com.example.administrator.yicheng.bean.Content;
 import com.example.administrator.yicheng.bean.Profile;
-import com.example.administrator.yicheng.utils.SharedPreferenceUtils;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -31,14 +28,11 @@ public class CityPlayActivity extends AppCompatActivity {
     WebView wvCityPlay;
     @BindView(R.id.fab)
     FloatingActionButton fab;
-    @BindView(R.id.imageview_city_play_bottom)
-    ImageView imageviewCityPlayBottom;
     @BindView(R.id.textview_comment_num)
     TextView textviewCommentNum;
     @BindView(R.id.relativie_city_paly)
     RelativeLayout relativieCityPaly;
-    @BindView(R.id.ll_cityPaly)
-    LinearLayout llCityPaly;
+
     private Content content;
     private Profile profile;
     private String goUrl;
@@ -74,5 +68,8 @@ public class CityPlayActivity extends AppCompatActivity {
                 finish();
             }
         });
+
+
     }
+
 }

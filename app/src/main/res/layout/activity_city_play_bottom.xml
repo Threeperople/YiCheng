@@ -4,25 +4,24 @@
     android:layout_weight="1"
     android:id="@+id/relativie_city_paly"
     android:layout_height="match_parent"
-    android:orientation="vertical"
     android:background="@color/text"
     >
 
     <ImageView
         android:id="@+id/imageview_city_play_bottom"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
-        android:paddingTop="10dp"
-        android:layout_centerVertical="true"
-        android:layout_centerHorizontal="true"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
         android:src="@mipmap/icon_comment" />
 
     <TextView
         android:id="@+id/textview_comment_num"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_toRightOf="@id/imageview_city_play_bottom"
-        android:layout_above="@+id/imageview_city_play_bottom"
+        android:layout_alignParentTop="true"
+        android:paddingLeft="10dp"
+        android:layout_alignTop="@id/imageview_city_play_bottom"
+        android:layout_alignRight="@+id/imageview_city_play_bottom"
         android:textColor="@color/white"
         android:text="8" />
 </RelativeLayout>
