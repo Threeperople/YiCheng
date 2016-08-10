@@ -6,6 +6,7 @@ import android.content.ContentResolver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
@@ -25,11 +26,14 @@ import com.example.administrator.yicheng.main.minef.login.setting.SettingActivit
 import com.example.administrator.yicheng.main.minef.msg.MsgActivity;
 import com.example.administrator.yicheng.main.minef.settingAPP.SettingAppActivity;
 import com.example.administrator.yicheng.main.minef.store.StoreActicity;
+import com.example.administrator.yicheng.utils.BitmapUtils;
 import com.example.administrator.yicheng.utils.LiteOrmUtils;
 import com.example.administrator.yicheng.utils.SharedPreferenceUtils;
+import com.example.administrator.yicheng.utils.StreamToByteUtils;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.InputStream;
 import java.util.List;
 
 import butterknife.BindView;
@@ -56,6 +60,7 @@ public class MineFragment extends BaseFragment implements MineContract.View, Vie
     private MinePresenter minePresenter;
     private String number;
     private String name;
+    private Bitmap bitmap;
 
 
     @Override
@@ -106,7 +111,13 @@ public class MineFragment extends BaseFragment implements MineContract.View, Vie
                 if (uri != null) {
                     ContentResolver cr = getActivity().getContentResolver();
                     try {
-                        fourFragmentLogin.setImageBitmap(BitmapFactory.decodeStream(cr.openInputStream(Uri.fromFile(new File(uri)))));
+                        if (bitmap != null)//如果不释放的话，不断取图片，将会内存不够
+                        {
+                            bitmap.recycle();
+                        }
+                        InputStream inputStream = cr.openInputStream(Uri.fromFile(new File(uri)));
+                        bitmap = BitmapUtils.doParse(StreamToByteUtils.getByte(inputStream),200,200, Bitmap.Config.RGB_565);
+                        fourFragmentLogin.setImageBitmap(bitmap);
                     } catch (FileNotFoundException e) {
                         e.printStackTrace();
                     }

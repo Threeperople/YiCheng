@@ -5,7 +5,6 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.Window;
 import android.webkit.WebSettings;
@@ -17,13 +16,13 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.example.administrator.yicheng.R;
-import com.example.administrator.yicheng.bean.BlogdaycontentItem;
 import com.example.administrator.yicheng.bean.Content;
 import com.example.administrator.yicheng.bean.Profile;
-import com.example.administrator.yicheng.utils.SharedPreferenceUtils;
+import com.example.administrator.yicheng.main.Read.webcontent.comment.CommentActivity;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 public class CityPlayActivity extends AppCompatActivity {
 
@@ -42,6 +41,7 @@ public class CityPlayActivity extends AppCompatActivity {
     private Content content;
     private Profile profile;
     private String goUrl;
+    private String goUrl1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,14 +51,14 @@ public class CityPlayActivity extends AppCompatActivity {
         ButterKnife.bind(this);
 
         Intent intent = getIntent();
-        String goUrl = intent.getStringExtra("goUrl");
+        goUrl1 = intent.getStringExtra("goUrl");
         WebSettings settings = wvCityPlay.getSettings();
         settings.setDefaultTextEncodingName("UTF-8");
         settings.setJavaScriptEnabled(true);
         settings.setAppCacheEnabled(true);
         settings.setDisplayZoomControls(true);
         settings.setSupportZoom(true);
-        wvCityPlay.loadUrl(String.valueOf(Uri.parse(goUrl)));
+        wvCityPlay.loadUrl(String.valueOf(Uri.parse(goUrl1)));
         wvCityPlay.setWebViewClient(new WebViewClient() {
             //重新加载url
             @Override
@@ -74,5 +74,12 @@ public class CityPlayActivity extends AppCompatActivity {
                 finish();
             }
         });
+    }
+
+    @OnClick(R.id.relativie_city_paly)
+    public void onClick() {
+        Intent intent=new Intent(this, CommentActivity.class);
+        intent.putExtra("url",goUrl);
+        startActivity(intent);
     }
 }

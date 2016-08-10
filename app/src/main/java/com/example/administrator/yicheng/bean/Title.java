@@ -1,13 +1,19 @@
 package com.example.administrator.yicheng.bean;
 
 import com.google.gson.annotations.SerializedName;
+import com.litesuits.orm.db.annotation.PrimaryKey;
+import com.litesuits.orm.db.annotation.Table;
+import com.litesuits.orm.db.enums.AssignType;
 
 import java.io.Serializable;
 
 /**
  * Created by Jensen on 2016/8/3.
  */
+@Table("title")
 public  class Title implements Serializable{
+    @PrimaryKey(AssignType.AUTO_INCREMENT)
+    private int id;
     @SerializedName("tid")
     private String tid;
     @SerializedName("mid")

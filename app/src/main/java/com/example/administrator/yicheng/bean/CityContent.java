@@ -1,12 +1,14 @@
 package com.example.administrator.yicheng.bean;
 
 import com.google.gson.annotations.SerializedName;
+import com.litesuits.orm.db.annotation.Table;
 
 import java.io.Serializable;
 
 /**
  * Created by Jensen on 2016/8/6.
  */
+@Table("city_collection")
 public  class CityContent implements Serializable{
     @SerializedName("msgid")
     private String msgid;

@@ -1,10 +1,14 @@
 package com.example.administrator.yicheng.bean;
 
 import com.google.gson.annotations.SerializedName;
+import com.litesuits.orm.db.annotation.PrimaryKey;
+import com.litesuits.orm.db.annotation.Table;
+import com.litesuits.orm.db.enums.AssignType;
 
 import java.io.Serializable;
-
+@Table("blogdaycontentItem")
 public  class BlogdaycontentItem implements Serializable{
+        @PrimaryKey(AssignType.BY_MYSELF)
         @SerializedName("id")
         private String id;
         @SerializedName("docid")

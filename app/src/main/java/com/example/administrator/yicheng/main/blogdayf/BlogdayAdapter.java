@@ -24,8 +24,8 @@ public class BlogdayAdapter extends BaseQuickAdapter<BlogdaycontentItem> {
     protected void convert(BaseViewHolder baseViewHolder, BlogdaycontentItem blogdaycontentItem) {
         baseViewHolder.setText(R.id.blogday_item_title,blogdaycontentItem.getTitle());
 
-        String day = blogdaycontentItem.getDay().substring(6, 8);
-        baseViewHolder.setText(R.id.blogday_item_time,day);
+    //    String day = blogdaycontentItem.getDay().substring(6, 8);
+//        baseViewHolder.setText(R.id.blogday_item_time,day);
 
         SimpleDraweeView imageBack=(SimpleDraweeView)baseViewHolder.getView(R.id.blogday_item_backImage);
         imageBack.setImageURI(blogdaycontentItem.getImages());

@@ -32,7 +32,6 @@ public class ProfileFragment extends BaseFragment implements ProfileContract.Vie
 
     @BindView(R.id.recycker)
     RecyclerView recycker;
-
     private List<Profile> list;
     private LinearLayoutManager layoutManager;
     private ProfileContract.Model model;
