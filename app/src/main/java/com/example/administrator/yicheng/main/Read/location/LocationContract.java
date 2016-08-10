@@ -6,8 +6,6 @@ import com.example.administrator.yicheng.base.IBaseView;
 import com.example.administrator.yicheng.bean.City;
 import com.example.administrator.yicheng.bean.CityBean;
 
-
-import java.util.HashMap;
 import java.util.List;
 
 import retrofit2.Callback;

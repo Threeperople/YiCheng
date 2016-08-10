@@ -1,5 +1,6 @@
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#999999"
@@ -10,18 +11,39 @@
         android:src="@mipmap/logo"
         android:background="#FFFFFF"
         />
-    <android.support.v4.widget.SwipeRefreshLayout
-        android:id="@+id/srl"
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         >
-    
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/recycker"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
+     <com.canyinghao.canrefresh.CanRefreshLayout
+         android:id="@+id/canrefresh_pro"
+         android:layout_width="match_parent"
+         android:layout_height="match_parent">
+         <com.canyinghao.canrefresh.google.GoogleCircleHookRefreshView
+             android:id="@id/can_refresh_header"
+             android:layout_width="match_parent"
+             android:layout_height="wrap_content"/>
+         <com.canyinghao.canrefresh.classic.RotateRefreshView
+             android:id="@id/can_refresh_footer"
+             android:layout_width="match_parent"
+             android:layout_height="wrap_content"/>
+         <ListView
+                android:id="@id/can_content_view"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
 
-        </android.support.v7.widget.RecyclerView>
-    </android.support.v4.widget.SwipeRefreshLayout>
+            </ListView>
+     </com.canyinghao.canrefresh.CanRefreshLayout>
+
+        <ImageView
+            android:id="@+id/iv_loading"
+            android:visibility="visible"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:background="@drawable/loading_fragment_profile_animation" />
+
+    </RelativeLayout>
+
 
 </LinearLayout>

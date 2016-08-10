@@ -54,9 +54,9 @@ public  class Profile {
             this.title = title;
         }
 
-        public String getTagurl() {
-            return tagurl;
-        }
+        public String getTagurl()    {
+        return tagurl;
+    }
 
         public void setTagurl(String tagurl) {
             this.tagurl = tagurl;

@@ -10,14 +10,14 @@ import android.view.Window;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
+
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.example.administrator.yicheng.R;
 import com.example.administrator.yicheng.bean.Content;
 import com.example.administrator.yicheng.bean.Profile;
+import com.example.administrator.yicheng.main.Read.webcontent.comment.CommentActivity;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -69,7 +69,19 @@ public class CityPlayActivity extends AppCompatActivity {
             }
         });
 
+        initView();
 
+    }
+
+    private void initView() {
+
+        textviewCommentNum.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(CityPlayActivity.this, CommentActivity.class);
+                startActivity(intent);
+            }
+        });
     }
 
 }

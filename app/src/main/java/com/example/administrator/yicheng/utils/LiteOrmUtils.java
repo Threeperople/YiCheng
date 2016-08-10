@@ -74,7 +74,7 @@ public class LiteOrmUtils {
      * @return
      */
     public static <T> List<T> getQueryByWhere(Class<T> cla,String field,String[] args){
-        return liteOrm.<T>query(new QueryBuilder(cla).where(field + "=?", args));
+        return liteOrm.<T>query(new QueryBuilder(cla).where(field + "=?",args));
     }
 
     public static <T> void deleteWhere(Class<T> cla,String field,String [] value){

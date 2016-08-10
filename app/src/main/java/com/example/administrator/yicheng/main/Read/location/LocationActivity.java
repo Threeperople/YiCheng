@@ -44,22 +44,22 @@ public class LocationActivity extends BaseActivity implements LocationContract.V
     Handler handler = new Handler() {
         @Override
         public void handleMessage(Message msg) {
-            super.handleMessage(msg);
-            if (msg.what == 1) {
-                List<City> list = (List<City>) msg.obj;
-                cities.addAll(list);
-                adapter.notifyDataSetChanged();
-                int position = 0;
-                for (City city : cities) {
-                    String letter = city.getEname().substring(0, 1);
-                    if (!letters.containsKey(letter)) {
-                        letters.put(letter, position);
-                    }
-                    position++;
-                }
+    super.handleMessage(msg);
+    if (msg.what == 1) {
+        List<City> list = (List<City>) msg.obj;
+        cities.addAll(list);
+        adapter.notifyDataSetChanged();
+        int position = 0;
+        for (City city : cities) {
+            String letter = city.getEname().substring(0, 1);
+            if (!letters.containsKey(letter)) {
+                letters.put(letter, position);
             }
+            position++;
         }
-    };
+    }
+}
+};
     private MyCityAdapter adapter;
 
     @Override
