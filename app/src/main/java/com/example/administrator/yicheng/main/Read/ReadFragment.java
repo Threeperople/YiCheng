@@ -5,15 +5,15 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
-import android.database.CursorJoiner;
-import android.os.Bundle;
+
+
 import android.os.Handler;
 import android.os.Message;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.view.LayoutInflater;
+
 import android.view.View;
-import android.view.ViewGroup;
+
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -28,11 +28,16 @@ import com.example.administrator.yicheng.bean.City;
 import com.example.administrator.yicheng.bean.CityTitle;
 import com.example.administrator.yicheng.bean.CityTitleBean;
 import com.example.administrator.yicheng.bean.Content;
+
 import com.example.administrator.yicheng.bean.Title;
 import com.example.administrator.yicheng.config.Types;
 import com.example.administrator.yicheng.config.Urls;
 import com.example.administrator.yicheng.main.Read.location.LocationActivity;
+
 import com.example.administrator.yicheng.utils.BdlocationUtils;
+
+import com.example.administrator.yicheng.utils.LiteOrmUtils;
+import com.example.administrator.yicheng.utils.NetWorkUtils;
 import com.google.gson.Gson;
 
 
@@ -63,6 +68,7 @@ public class ReadFragment extends BaseFragment implements ReadContract.View, Can
     private MyTitleAdapter titleAdapter;
     private List<Title> titles = new ArrayList<>();
     private ReadPresenter presenter;
+    private List<Title> recycleTitle=new ArrayList<>();
     private List<Content> contentList = new ArrayList<>();
     private MyListAdapter listAdapter;
     private String hot;
@@ -74,8 +80,10 @@ public class ReadFragment extends BaseFragment implements ReadContract.View, Can
             super.handleMessage(msg);
             switch (msg.what) {
                 case Types.TITLE_TYPE:
+                    LiteOrmUtils.deleteAll(Title.class);
                     List<Title> titlelist = (List<Title>) msg.obj;
                     titles.addAll(titlelist);
+                    LiteOrmUtils.insertAll(titles);
                     titleAdapter.notifyDataSetChanged();
                     break;
                 case Types.HOT_TYPE:
@@ -107,8 +115,10 @@ public class ReadFragment extends BaseFragment implements ReadContract.View, Can
                     presenter.getList(Types.HOT_CONTNT_TYPE, num);
                     break;
                 case Types.HOT_CONTNT_TYPE:
+                    LiteOrmUtils.deleteAll(Content.class);
                     List<Content> content = (List<Content>) msg.obj;
                     contentList.addAll(content);
+                    LiteOrmUtils.insertAll(contentList);
                     listAdapter.notifyDataSetChanged();
                     canRefresh.loadMoreComplete();
                     break;
@@ -146,6 +156,7 @@ public class ReadFragment extends BaseFragment implements ReadContract.View, Can
 
     }
 
+
     @Override
     public void initData() {
         Gson gson=new Gson();
@@ -154,11 +165,21 @@ public class ReadFragment extends BaseFragment implements ReadContract.View, Can
         LinearLayoutManager manager = new LinearLayoutManager(getActivity());
         manager.setOrientation(LinearLayoutManager.HORIZONTAL);
         rv.setLayoutManager(manager);
-        if (this.titles.size() == 0) {
-            presenter.getList(Types.TITLE_TYPE, num);
-        }
-        if (contentList.size() == 0) {
-            presenter.getList(Types.HOT_TYPE, num);
+        boolean b = NetWorkUtils.isNetworkAvailable(getActivity());
+        if(b) {
+            if (this.titles.size() == 0) {
+                presenter.getList(Types.TITLE_TYPE, num);
+            }
+            if (contentList.size() == 0) {
+                presenter.getList(Types.HOT_TYPE, num);
+            }
+        }else{
+            if(this.titles.size()==0&&contentList.size()==0) {
+                List<Title> all = LiteOrmUtils.getQueryAll(Title.class);
+                this.titles.addAll(all);
+                List<Content> contents = LiteOrmUtils.getQueryAll(Content.class);
+                contentList.addAll(contents);
+            }
         }
         listAdapter = new MyListAdapter(contentList,null,getActivity());
         canContentView.setAdapter(listAdapter);
@@ -201,9 +222,6 @@ public class ReadFragment extends BaseFragment implements ReadContract.View, Can
                 Intent intent=new Intent(getActivity(), LocationActivity.class);
                 intent.putExtra("city",cityName);
                 startActivityForResult(intent,1);
-                break;
-            case R.id.add:
-
                 break;
         }
     }

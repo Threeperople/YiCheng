@@ -26,12 +26,15 @@ import android.widget.Toast;
 import com.example.administrator.yicheng.R;
 import com.example.administrator.yicheng.base.BaseActivity;
 import com.example.administrator.yicheng.bean.RegisterPeople;
+import com.example.administrator.yicheng.utils.BitmapUtils;
 import com.example.administrator.yicheng.utils.LiteOrmUtils;
+import com.example.administrator.yicheng.utils.StreamToByteUtils;
 import com.example.administrator.yicheng.utils.UriFileUtils;
 import com.example.administrator.yicheng.view.WheelView;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.InputStream;
 import java.util.Arrays;
 import java.util.List;
 
@@ -65,6 +68,7 @@ public class SettingActivity extends BaseActivity {
     private String name;
     private List<RegisterPeople> user;
     private Uri uri;
+    private Bitmap bitmap;
 
     @Override
     public int getLayoutId() {
@@ -87,7 +91,12 @@ public class SettingActivity extends BaseActivity {
         if(uri!=null) {
             ContentResolver cr = this.getContentResolver();
             try {
-                fourFragmentImageIcon.setImageBitmap(BitmapFactory.decodeStream(cr.openInputStream(Uri.fromFile(new File(uri)))));
+                if(bitmap!=null){
+                    bitmap.recycle();
+                }
+                InputStream inputStream = cr.openInputStream(Uri.fromFile(new File(uri)));
+                bitmap = BitmapUtils.doParse(StreamToByteUtils.getByte(inputStream),100,100, Bitmap.Config.RGB_565);
+                fourFragmentImageIcon.setImageBitmap(bitmap);
             } catch (FileNotFoundException e) {
                 e.printStackTrace();
             }
@@ -219,7 +228,8 @@ public class SettingActivity extends BaseActivity {
             try {
                 if (bmp != null)//如果不释放的话，不断取图片，将会内存不够
                     bmp.recycle();
-                bmp = BitmapFactory.decodeStream(cr.openInputStream(uri));
+                InputStream inputStream = cr.openInputStream(uri);
+                bmp = BitmapUtils.doParse(StreamToByteUtils.getByte(inputStream),200,200, Bitmap.Config.RGB_565);
             } catch (FileNotFoundException e) {
                 // TODO Auto-generated catch block
                 e.printStackTrace();

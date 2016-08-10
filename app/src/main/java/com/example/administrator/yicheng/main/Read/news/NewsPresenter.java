@@ -7,6 +7,7 @@ import com.example.administrator.yicheng.bean.CityContentBean;
 import com.example.administrator.yicheng.bean.ContentBean;
 import com.example.administrator.yicheng.config.Types;
 import com.example.administrator.yicheng.config.Urlconfig;
+import com.example.administrator.yicheng.utils.LiteOrmUtils;
 
 import java.util.HashMap;
 

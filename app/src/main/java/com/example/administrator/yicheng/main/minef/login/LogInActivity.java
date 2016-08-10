@@ -111,6 +111,7 @@ public class LogInActivity extends BaseActivity {
             case R.id.login_registerNum://点击注册按键，跳转到注册界面
                 startActivity(new Intent(this, RegisterActivity.class));
                 //activity左出右进动画效果
+                finish();
                 overridePendingTransition(R.anim.in_from_right, R.anim.out_to_left);
                 break;
             case R.id.login_frogetNum:

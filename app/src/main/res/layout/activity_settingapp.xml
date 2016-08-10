@@ -30,16 +30,13 @@
                 android:id="@+id/setting_exitApp"
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
-                android:orientation="horizontal"
                 android:layout_marginTop="5dp"
                 android:gravity="center"
                 android:background="#fff"
                 android:text="退出登录"
                 android:textColor="#f00"
                 android:textSize="20sp"
-                android:alpha="0.5"
-                android:enabled="false"
-                ></TextView>
+                />
         </LinearLayout>
             <com.example.administrator.yicheng.view.DashSpinner
                 android:id="@+id/settingApp_progress_spinner"
