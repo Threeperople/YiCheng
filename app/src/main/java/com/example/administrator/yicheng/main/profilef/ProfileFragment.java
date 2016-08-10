@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.graphics.drawable.AnimationDrawable;
 import android.os.Bundle;
 import android.os.Handler;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -38,12 +39,9 @@ public class ProfileFragment extends BaseFragment implements ProfileContract.Vie
     @BindView(R.id.canrefresh_pro)
     CanRefreshLayout canrefreshPro;
 
-<<<<<<< HEAD
 
-=======
-    @BindView(R.id.recycker)
-    RecyclerView recycker;
->>>>>>> 32c06d1ce3823e763df39275954fb5f684ed26ed
+
+
     private List<Profile> list;
     private ProfileContract.Model model;
     private ProfileContract.Presenter presenter;

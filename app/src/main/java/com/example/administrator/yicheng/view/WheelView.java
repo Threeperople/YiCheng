@@ -328,7 +328,7 @@ public class WheelView extends ScrollView {
             @Override
             public void draw(Canvas canvas) {
                 canvas.drawLine(viewWidth * 1 / 6, obtainSelectedAreaBorder()[0], viewWidth * 5 / 6, obtainSelectedAreaBorder()[0], paint);
-                canvas.drawLine(viewWidth * 1 / 6, obtainSelectedAreaBorder()[1], viewWidth * 5 / 6, obtainSelectedAreaBorder()[1], paint);
+
             }
 
             @Override
@@ -343,10 +343,7 @@ public class WheelView extends ScrollView {
 
             @Override
             public int getOpacity() {
-<<<<<<< HEAD
 
-=======
->>>>>>> 32c06d1ce3823e763df39275954fb5f684ed26ed
                 return 0;
             }
         };

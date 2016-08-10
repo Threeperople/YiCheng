@@ -29,8 +29,7 @@ public class CityPlayActivity extends AppCompatActivity {
     WebView wvCityPlay;
     @BindView(R.id.fab)
     FloatingActionButton fab;
-    @BindView(R.id.textview_comment_num)
-    TextView textviewCommentNum;
+
     @BindView(R.id.relativie_city_paly)
     RelativeLayout relativieCityPaly;
 
@@ -71,28 +70,15 @@ public class CityPlayActivity extends AppCompatActivity {
             }
         });
 
-        initView();
 
     }
 
-    private void initView() {
 
-        textviewCommentNum.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(CityPlayActivity.this, CommentActivity.class);
-                startActivity(intent);
-            }
-        });
-    }
-
-<<<<<<< HEAD
-=======
     @OnClick(R.id.relativie_city_paly)
     public void onClick() {
         Intent intent=new Intent(this, CommentActivity.class);
         intent.putExtra("url",goUrl);
         startActivity(intent);
     }
->>>>>>> 32c06d1ce3823e763df39275954fb5f684ed26ed
+
 }
