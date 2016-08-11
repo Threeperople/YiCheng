@@ -75,7 +75,7 @@ public class ProfileFragment extends BaseFragment implements ProfileContract.Vie
         AnimationDrawable background = (AnimationDrawable) ivLoading.getBackground();
         background.start();
         canContentView.setEmptyView(ivLoading);
-//       }
+//       }这是之前的测试
 //        else {
 //           Toast.makeText(getContext(),"have",Toast.LENGTH_SHORT).show();
 //           lv_profile.setVisibility(View.VISIBLE);
